@@ -1,0 +1,4 @@
+source;share/keyboardcontrol/local_setup.bash
+source;share/keyboardcontrol/local_setup.dsv
+source;share/keyboardcontrol/local_setup.sh
+source;share/keyboardcontrol/local_setup.zsh

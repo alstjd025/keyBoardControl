@@ -1,0 +1,23 @@
+-- Found ament_cmake: 1.1.5 (/opt/ros/galactic/share/ament_cmake/cmake)
+-- Using PYTHON_EXECUTABLE: /usr/bin/python3
+-- Found rclcpp: 9.2.0 (/opt/ros/galactic/share/rclcpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Found rosidl_adapter: 2.2.1 (/opt/ros/galactic/share/rosidl_adapter/cmake)
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 3.3.1 (/opt/ros/galactic/share/rmw_implementation_cmake/cmake)
+-- Found rmw_cyclonedds_cpp: 0.22.4 (/opt/ros/galactic/share/rmw_cyclonedds_cpp/cmake)
+-- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+WARNING: Package name "keyBoardControl" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+CMake Error at /opt/ros/galactic/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:53 (message):
+  ament_package_xml() package name 'keyBoardControl' in '/package.xml' does
+  not match current PROJECT_NAME 'keyboardcontrol'.  You must call project()
+  with the same package name before.
+Call Stack (most recent call first):
+  /opt/ros/galactic/share/ament_cmake_core/cmake/core/ament_package.cmake:63 (ament_package_xml)
+  CMakeLists.txt:40 (ament_package)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/misys/keyBoardControl/build/keyBoardControl/CMakeFiles/CMakeOutput.log".
+See also "/home/misys/keyBoardControl/build/keyBoardControl/CMakeFiles/CMakeError.log".
+make: *** [Makefile:310: cmake_check_build_system] Error 1

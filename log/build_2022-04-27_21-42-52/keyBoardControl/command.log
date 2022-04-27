@@ -1,0 +1,6 @@
+Invoking command in '/home/misys/keyBoardControl/build/keyBoardControl': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake /home/misys/keyBoardControl -DCMAKE_INSTALL_PREFIX=/home/misys/keyBoardControl/install/keyBoardControl
+Invoked command in '/home/misys/keyBoardControl/build/keyBoardControl' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake /home/misys/keyBoardControl -DCMAKE_INSTALL_PREFIX=/home/misys/keyBoardControl/install/keyBoardControl
+Invoking command in '/home/misys/keyBoardControl/build/keyBoardControl': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/misys/keyBoardControl/build/keyBoardControl -- -j12 -l12
+Invoked command in '/home/misys/keyBoardControl/build/keyBoardControl' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/misys/keyBoardControl/build/keyBoardControl -- -j12 -l12
+Invoking command in '/home/misys/keyBoardControl/build/keyBoardControl': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --install /home/misys/keyBoardControl/build/keyBoardControl
+Invoked command in '/home/misys/keyBoardControl/build/keyBoardControl' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --install /home/misys/keyBoardControl/build/keyBoardControl

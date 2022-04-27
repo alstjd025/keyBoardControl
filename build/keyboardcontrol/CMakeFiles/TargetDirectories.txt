@@ -1,0 +1,11 @@
+/home/misys/keyBoardControl/build/keyboardcontrol/CMakeFiles/install/strip.dir
+/home/misys/keyBoardControl/build/keyboardcontrol/CMakeFiles/install/local.dir
+/home/misys/keyBoardControl/build/keyboardcontrol/CMakeFiles/edit_cache.dir
+/home/misys/keyBoardControl/build/keyboardcontrol/CMakeFiles/test.dir
+/home/misys/keyBoardControl/build/keyboardcontrol/CMakeFiles/install.dir
+/home/misys/keyBoardControl/build/keyboardcontrol/CMakeFiles/list_install_components.dir
+/home/misys/keyBoardControl/build/keyboardcontrol/CMakeFiles/rebuild_cache.dir
+/home/misys/keyBoardControl/build/keyboardcontrol/CMakeFiles/testKeyBoard.dir
+/home/misys/keyBoardControl/build/keyboardcontrol/CMakeFiles/getKeyBoard.dir
+/home/misys/keyBoardControl/build/keyboardcontrol/CMakeFiles/keyboardcontrol_uninstall.dir
+/home/misys/keyBoardControl/build/keyboardcontrol/CMakeFiles/uninstall.dir

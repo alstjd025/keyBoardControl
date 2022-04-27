@@ -1,0 +1,66 @@
+[0.000000] (-) TimerEvent: {}
+[0.000387] (keyBoardControl) JobQueued: {'identifier': 'keyBoardControl', 'dependencies': OrderedDict()}
+[0.000852] (keyBoardControl) JobStarted: {'identifier': 'keyBoardControl'}
+[0.008527] (keyBoardControl) JobProgress: {'identifier': 'keyBoardControl', 'progress': 'cmake'}
+[0.008793] (keyBoardControl) Command: {'cmd': ['/usr/bin/cmake', '/home/misys/keyBoardControl', '-DCMAKE_INSTALL_PREFIX=/home/misys/keyBoardControl/install/keyBoardControl'], 'cwd': '/home/misys/keyBoardControl/build/keyBoardControl', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'misys'), ('LC_TIME', 'ko_KR.UTF-8'), ('SSH_AGENT_PID', '1181'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/x86_64-linux-gnu:/opt/ros/galactic/lib'), ('HOME', '/home/misys'), ('OLDPWD', '/home/misys'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'ko_KR.UTF-8'), ('MANAGERPID', '900'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/misys/cpp_pubsub/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'misys'), ('JOURNAL_STREAM', '8:31335'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'misys'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/galactic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/misys-desktop:@/tmp/.ICE-unix/1216,unix/misys-desktop:/tmp/.ICE-unix/1216'), ('INVOCATION_ID', 'd59f7f89844e491284e1bc3edefe61b9'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ko_KR.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/7a9ee244_602f_41d9_8b98_1294f7308128'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'ko_KR.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.1218'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/misys/cpp_pubsub/install/cpp_pubsub:/opt/ros/galactic'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ko_KR.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'ko_KR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'ko_KR.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/misys/keyBoardControl/build/keyBoardControl'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/galactic/lib/python3.8/site-packages'), ('LC_NUMERIC', 'ko_KR.UTF-8'), ('LC_PAPER', 'ko_KR.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('CMAKE_PREFIX_PATH', '/home/misys/cpp_pubsub/install/cpp_pubsub:/opt/ros/galactic')]), 'shell': False}
+[0.049388] (keyBoardControl) StdoutLine: {'line': b'-- The C compiler identification is GNU 9.4.0\n'}
+[0.088198] (keyBoardControl) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 9.4.0\n'}
+[0.091616] (keyBoardControl) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc\n'}
+[0.099992] (-) TimerEvent: {}
+[0.140160] (keyBoardControl) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc -- works\n'}
+[0.140873] (keyBoardControl) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.191770] (keyBoardControl) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.200084] (-) TimerEvent: {}
+[0.201324] (keyBoardControl) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.201609] (keyBoardControl) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.203445] (keyBoardControl) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++\n'}
+[0.259706] (keyBoardControl) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ -- works\n'}
+[0.260566] (keyBoardControl) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.300181] (-) TimerEvent: {}
+[0.317234] (keyBoardControl) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.326850] (keyBoardControl) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.327262] (keyBoardControl) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.328633] (keyBoardControl) StdoutLine: {'line': b'-- Found ament_cmake: 1.1.5 (/opt/ros/galactic/share/ament_cmake/cmake)\n'}
+[0.346162] (keyBoardControl) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") \n'}
+[0.346388] (keyBoardControl) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[0.400301] (-) TimerEvent: {}
+[0.401002] (keyBoardControl) StdoutLine: {'line': b'-- Found rclcpp: 9.2.0 (/opt/ros/galactic/share/rclcpp/cmake)\n'}
+[0.435528] (keyBoardControl) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.440137] (keyBoardControl) StdoutLine: {'line': b'-- Found rosidl_adapter: 2.2.1 (/opt/ros/galactic/share/rosidl_adapter/cmake)\n'}
+[0.489858] (keyBoardControl) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  \n'}
+[0.500409] (-) TimerEvent: {}
+[0.511312] (keyBoardControl) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/galactic/include  \n'}
+[0.568891] (keyBoardControl) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.600503] (-) TimerEvent: {}
+[0.615598] (keyBoardControl) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 3.3.1 (/opt/ros/galactic/share/rmw_implementation_cmake/cmake)\n'}
+[0.617520] (keyBoardControl) StdoutLine: {'line': b'-- Found rmw_cyclonedds_cpp: 0.22.4 (/opt/ros/galactic/share/rmw_cyclonedds_cpp/cmake)\n'}
+[0.632981] (keyBoardControl) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_cyclonedds_cpp' as default\n"}
+[0.633754] (keyBoardControl) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[0.684361] (keyBoardControl) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[0.684657] (keyBoardControl) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[0.700632] (-) TimerEvent: {}
+[0.739876] (keyBoardControl) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed\n'}
+[0.740148] (keyBoardControl) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads\n'}
+[0.781212] (keyBoardControl) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads - not found\n'}
+[0.781482] (keyBoardControl) StdoutLine: {'line': b'-- Looking for pthread_create in pthread\n'}
+[0.800754] (-) TimerEvent: {}
+[0.830456] (keyBoardControl) StdoutLine: {'line': b'-- Looking for pthread_create in pthread - found\n'}
+[0.831349] (keyBoardControl) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[0.900866] (-) TimerEvent: {}
+[0.984789] (keyBoardControl) StderrLine: {'line': b'WARNING: Package name "keyBoardControl" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.\n'}
+[0.989076] (keyBoardControl) StderrLine: {'line': b'CMake Error at /opt/ros/galactic/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:53 (message):\n'}
+[0.989191] (keyBoardControl) StderrLine: {'line': b"  ament_package_xml() package name 'keyBoardControl' in '/package.xml' does\n"}
+[0.989253] (keyBoardControl) StderrLine: {'line': b"  not match current PROJECT_NAME 'keyBaordControl'.  You must call project()\n"}
+[0.989311] (keyBoardControl) StderrLine: {'line': b'  with the same package name before.\n'}
+[0.989371] (keyBoardControl) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[0.989428] (keyBoardControl) StderrLine: {'line': b'  /opt/ros/galactic/share/ament_cmake_core/cmake/core/ament_package.cmake:63 (ament_package_xml)\n'}
+[0.989485] (keyBoardControl) StderrLine: {'line': b'  CMakeLists.txt:40 (ament_package)\n'}
+[0.989541] (keyBoardControl) StderrLine: {'line': b'\n'}
+[0.989597] (keyBoardControl) StderrLine: {'line': b'\n'}
+[0.990458] (keyBoardControl) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[0.990616] (keyBoardControl) StdoutLine: {'line': b'See also "/home/misys/keyBoardControl/build/keyBoardControl/CMakeFiles/CMakeOutput.log".\n'}
+[0.990747] (keyBoardControl) StdoutLine: {'line': b'See also "/home/misys/keyBoardControl/build/keyBoardControl/CMakeFiles/CMakeError.log".\n'}
+[0.996558] (keyBoardControl) CommandEnded: {'returncode': 1}
+[1.000982] (-) TimerEvent: {}
+[1.013765] (keyBoardControl) JobEnded: {'identifier': 'keyBoardControl', 'rc': 1}
+[1.024130] (-) EventReactorShutdown: {}
