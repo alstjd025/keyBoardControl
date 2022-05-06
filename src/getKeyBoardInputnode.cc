@@ -25,11 +25,11 @@ using namespace std::chrono_literals;
 getKeyBoardInput::getKeyBoardInput()
 : Node("minimal_publisher")
 {
-    publisher_speed = this->create_publisher<std_msgs::msg::Float32>("SPEED", 10);
-    publisher_angle = this->create_publisher<std_msgs::msg::Float32>("ANGLE", 10);
+    publisher_speed = this->create_publisher<std_msgs::msg::Float32>("ref_vel", 10);
+    publisher_angle = this->create_publisher<std_msgs::msg::Float32>("ref_ang", 10);
     publisher_control_cmd = this->create_publisher<std_msgs::msg::Int32>("CONTROL_CMD", 10);
     mcm_state_sub = this->create_subscription<std_msgs::msg::Int32>(
-        "MCM_STATE", 10, std::bind(&getKeyBoardInput::updateState, this, _1));
+        "mcm_status", 10, std::bind(&getKeyBoardInput::updateState, this, _1));
     mcm_State = STANDBY;
     message_speed.data = 0;
     message_angle.data = 0;
@@ -39,10 +39,6 @@ getKeyBoardInput::getKeyBoardInput()
 
 }
 
-void getKeyBoardInput::sub(){
-    mcm_state_sub = this->create_subscription<std_msgs::msg::Int32>(
-        "MCM_STATE", 10, std::bind(&getKeyBoardInput::updateState, this, _1));
-}
 
 void getKeyBoardInput::standby()
 {
@@ -66,6 +62,7 @@ void getKeyBoardInput::standby()
         case MCMState::OVERRIDE:
             message_speed.data = 0;
             message_angle.data = 0;
+            faultHandler(); 
             break;
 
         case MCMState::FAULT:
@@ -76,87 +73,87 @@ void getKeyBoardInput::standby()
             break;
         }
     }
-    std::cout << "End KeyBoard Control \n";
-    message_speed.data = 0;
-    message_angle.data = 0;
-    std::cout << "Set Speed, Angle 0 \n";
-    std::cout << "SPEED : " << message_angle.data <<" ANGLE : " << message_speed.data << "\n";    
-    publisher_speed->publish(message_speed);
-    publisher_angle->publish(message_angle);
     return;
 }
 
 void getKeyBoardInput::pidControlSequance(){
-    int key = getch();
-    while(key != 'q' || returnState() == MCMState::PIDControl){
-    switch(key) {
-        case KEY_SPACE: //Brake for Gear Shift
-            printw("Brake! \n");
-            refresh();
-            message_speed.data = -1;
-            publisher_speed->publish(message_speed);
-            break;
-
-        case KEY_UP:
-            if(message_speed.data < 100){ 
-                message_speed.data += 5;
-                printw("SPEED UP : %f \n" , message_speed.data);
-                refresh();
-                publisher_speed->publish(message_speed);
-                //PUBLISH SPEED REF HERE
-            }else{
-                printw("SPEED CANNOT OVER 100km/h!! \n");
-                refresh();
-                message_speed.data = 100;
-            }
-            break;
-
-        case KEY_DOWN:
-            if(message_speed.data > 0){ 
-                message_speed.data -= 5;
-                printw("SPEED DOWN : %f \n" , message_speed.data);
-                refresh();
-                publisher_speed->publish(message_speed);
-                //PUBLISH SPEED REF HERE
-            }else{
-                printw("SPEED CANNOT UNDER 0km/h!! \n");
-                refresh();
-                message_speed.data = 0;
-            }
-            break;
-
-        case KEY_LEFT: 
-            message_angle.data -= 5;
-            printw("ANGLE LEFT : %f \n" , message_angle.data);
-            refresh();
-            publisher_angle->publish(message_angle);
-            //PUBLISH ANGLE REF HERE
-            break;
-
-        case KEY_RIGHT:
-            message_angle.data += 5;
-            printw("ANGLE RIGHT : %f \n" , message_angle.data);
-            refresh();
-            publisher_angle->publish(message_angle);
-            //PUBLISH ANGLE REF HERE
-            break;
-        
-        case KEY_Q:
-            quitControl();
-            break;
-
-        case KEY_HOME:
-            updateStateTo(MCMState::STANDBY);
-            break;
-
-        default:
-            clear();
-            printw("Got %d \n", key);
-            printw("Clear Terminal \n");
-            printw("SPEED : %f, ANGLE : %f\n", message_speed.data, message_angle.data);
-            refresh();
-            break;
+    clear();
+    int key;
+    printpidControlKey();
+    while(key != 'q' && returnState() == MCMState::PIDControl){
+        key = getch();
+        if(returnState() != MCMState::PIDControl){
+            return;
         }
+        switch(key) {
+            case KEY_SPACE: //Brake for Gear Shift
+                printw("Brake! \n");
+                refresh();
+                message_speed.data = -1;
+                publisher_speed->publish(message_speed);
+                message_speed.data = 0;
+                break;
+
+            case KEY_UP:
+                if(message_speed.data < 100){ 
+                    message_speed.data += 5;
+                    printw("SPEED UP : %f \n" , message_speed.data);
+                    refresh();
+                    publisher_speed->publish(message_speed);
+                    //PUBLISH SPEED REF HERE
+                }else{
+                    printw("SPEED CANNOT OVER 100km/h!! \n");
+                    refresh();
+                    message_speed.data = 100;
+                }
+                break;
+
+            case KEY_DOWN:
+                if(message_speed.data > 0){ 
+                    message_speed.data -= 5;
+                    printw("SPEED DOWN : %f \n" , message_speed.data);
+                    refresh();
+                    publisher_speed->publish(message_speed);
+                    //PUBLISH SPEED REF HERE
+                }else{
+                    printw("SPEED CANNOT UNDER 0km/h!! \n");
+                    refresh();
+                    message_speed.data = 0;
+                }
+                break;
+
+            case KEY_LEFT: 
+                message_angle.data -= 5;
+                printw("ANGLE LEFT : %f \n" , message_angle.data);
+                refresh();
+                publisher_angle->publish(message_angle);
+                //PUBLISH ANGLE REF HERE
+                break;
+
+            case KEY_RIGHT:
+                message_angle.data += 5;
+                printw("ANGLE RIGHT : %f \n" , message_angle.data);
+                refresh();
+                publisher_angle->publish(message_angle);
+                //PUBLISH ANGLE REF HERE
+                break;
+            
+            case KEY_Q:
+                quitControl();
+                break;
+
+            case KEY_HOME:
+                updateStateTo(MCMState::STANDBY);
+                break;
+
+            default:
+                clear();
+                printw("Got %d \n", key);
+                printw("Clear Terminal \n");
+                printw("SPEED : %f, ANGLE : %f\n", message_speed.data, message_angle.data);
+                refresh();
+                break;
+            }
     }
     refresh();
     endwin();
@@ -166,7 +163,9 @@ void getKeyBoardInput::controlSelectSequance(){
 
     auto message_control_cmd = std_msgs::msg::Int32();
     int key = getcontrolSelectKey();
-    publisher_angle->publish(message_angle);
+    if(returnState() == MCMState::PIDControl){
+        return;
+    }
     switch (key)
     {
         case KEY_1:
@@ -202,11 +201,11 @@ void getKeyBoardInput::controlSelectSequance(){
 }
 
 void getKeyBoardInput::overrideHandler(){
-    faultHandler();    
-    clear();
+    clear();   
     printw("Override Detected!! \n");
     printw("Override Detected!! \n");
     printw("Override Detected!! \n");
+    printw("Press any key to continue\n");
     refresh();
 }
 
@@ -222,40 +221,56 @@ MCMState getKeyBoardInput::returnState(){
     return tmp;
 }
 
-void getKeyBoardInput::updateState(const std_msgs::msg::Int32::SharedPtr msg){
-    printw("Control Enabled! \n");
-    refresh();
-    publisher_speed->publish(message_speed);
+void getKeyBoardInput::updateState(const std_msgs::msg::Int32::SharedPtr msg){  
+    updateStateTo(msg->data);
     if(msg->data == 1){
-
         printw("Control Enabled! \n");
         printw("Control Enabled! \n");
         printw("Control Enabled! \n");
+        printw("Press any key to continue\n");
+        refresh();
     }
     else if(msg->data == 2){
         overrideHandler();
     }
-    updateStateTo(msg->data);
 }
 
 void getKeyBoardInput::updateStateTo(int state){
     MCM_State_Lock.lock();
     mcm_State = MCMState(state);
+    refresh();
     MCM_State_Lock.unlock();
 }
 
 void getKeyBoardInput::faultHandler(){
-    if(returnState() == MCMState::PIDControl){
-        //Send Dummy out to getchar
-        std::cout << KEY_HOME;
+    
+    refresh();
+    if(returnState() == MCMState::OVERRIDE || \
+        returnState() == MCMState::FAULT){
+        updateStateTo(MCMState::STANDBY);
     }
 }
 
 void getKeyBoardInput::quitControl(){
     printw("QUIT CONTROL, SEND (0, 0) for speed & angle\n");
     printw("Terminate KeyboardInputNode after 5 sec\n");
+    refresh();
+    message_speed.data = 0;
+    message_angle.data = 0;
+    publisher_speed->publish(message_speed);
+    publisher_angle->publish(message_angle);
+    sleep(5);
     endwin();
     exit(0);
+}
+
+void getKeyBoardInput::printpidControlKey(){
+    printw("=====[PID TEST]=====\n");
+    printw("UP   :     REF SPEED +5 km/h \n");
+    printw("DOWN :     REF SPEED -5 km/h \n");
+    printw("RIGHT:     REF ANGLE +5 '    \n");
+    printw("LEFT :     REF ANGLE -5 '    \n");
+    refresh();
 }
 
 int getKeyBoardInput::getcontrolSelectKey(){
@@ -269,6 +284,9 @@ int getKeyBoardInput::getcontrolSelectKey(){
     return key;
 }
 
+getKeyBoardInput::~getKeyBoardInput(){
+    std::terminate();
+}
 
 
 int main(int argc, char * argv[])
