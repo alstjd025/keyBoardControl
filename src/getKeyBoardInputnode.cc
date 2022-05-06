@@ -6,9 +6,10 @@
 #include <iostream>
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/float32.hpp"
-#include "include/getKeyBoardInputnode.hpp"
+#include "../include/keyboardcontrol/getKeyBoardInputnode.hpp"
 
 using namespace std::chrono_literals;
+
 
 /* This example creates a subclass of Node and uses std::bind() to register a
 * member function as a callback from the timer. */
@@ -26,47 +27,56 @@ getKeyBoardInput::getKeyBoardInput()
 {
     publisher_speed = this->create_publisher<std_msgs::msg::Float32>("SPEED", 10);
     publisher_angle = this->create_publisher<std_msgs::msg::Float32>("ANGLE", 10);
+    publisher_control_cmd = this->create_publisher<std_msgs::msg::Int32>("CONTROL_CMD", 10);
+    mcm_state_sub = this->create_subscription<std_msgs::msg::Int32>(
+        "MCM_STATE", 10, std::bind(&getKeyBoardInput::updateState, this, _1));
     mcm_State = STANDBY;
-    standby();
+    message_speed.data = 0;
+    message_angle.data = 0;
+
+    thread j(&getKeyBoardInput::standby, this);
+    j.detach();
+
+}
+
+void getKeyBoardInput::sub(){
+    mcm_state_sub = this->create_subscription<std_msgs::msg::Int32>(
+        "MCM_STATE", 10, std::bind(&getKeyBoardInput::updateState, this, _1));
 }
 
 void getKeyBoardInput::standby()
 {
-    auto message_speed = std_msgs::msg::Float32();
-    auto message_angle = std_msgs::msg::Float32();
-    message_speed.data = 0;
-    message_angle.data = 0;
-    int key;
     initscr();
     raw();
     keypad(stdscr, TRUE);
     noecho();
-
-    printw("Arrow Up : ++5km/h Arrow Down : --5km/h\n");
-    printw("Arrow Left : --5' Arrow Right : ++5'\n");
-    printw("q : EXIT\n");
-    while ((key = getch()) != 'q') {
-        switch (mcm_State)
+    clear();
+    while (returnState() != MCMState::QUIT) {
+        MCMState tmp = returnState();
+        switch (tmp)
         {
+        case MCMState::STANDBY:
+            controlSelectSequance();
+            break;
+
         case MCMState::PIDControl:
-
+            pidControlSequance();
             break;
+
         case MCMState::OVERRIDE:
-            
+            message_speed.data = 0;
+            message_angle.data = 0;
             break;
-        case MCMState::FAULT:
 
+        case MCMState::FAULT:
+            //not used now
             break;
-            
+
         default:
             break;
         }
-        pidControlSequance(key);
-        
     }
-    refresh();
-    endwin();
-    std::cout << "End KeyBoard Input Control \n";
+    std::cout << "End KeyBoard Control \n";
     message_speed.data = 0;
     message_angle.data = 0;
     std::cout << "Set Speed, Angle 0 \n";
@@ -76,16 +86,27 @@ void getKeyBoardInput::standby()
     return;
 }
 
-void getKeyBoardInput::pidControlSequance(int key){
+void getKeyBoardInput::pidControlSequance(){
+    int key = getch();
+    while(key != 'q' || returnState() == MCMState::PIDControl){
     switch(key) {
+        case KEY_SPACE: //Brake for Gear Shift
+            printw("Brake! \n");
+            refresh();
+            message_speed.data = -1;
+            publisher_speed->publish(message_speed);
+            break;
+
         case KEY_UP:
             if(message_speed.data < 100){ 
                 message_speed.data += 5;
                 printw("SPEED UP : %f \n" , message_speed.data);
+                refresh();
                 publisher_speed->publish(message_speed);
                 //PUBLISH SPEED REF HERE
             }else{
                 printw("SPEED CANNOT OVER 100km/h!! \n");
+                refresh();
                 message_speed.data = 100;
             }
             break;
@@ -94,10 +115,12 @@ void getKeyBoardInput::pidControlSequance(int key){
             if(message_speed.data > 0){ 
                 message_speed.data -= 5;
                 printw("SPEED DOWN : %f \n" , message_speed.data);
+                refresh();
                 publisher_speed->publish(message_speed);
                 //PUBLISH SPEED REF HERE
             }else{
                 printw("SPEED CANNOT UNDER 0km/h!! \n");
+                refresh();
                 message_speed.data = 0;
             }
             break;
@@ -105,6 +128,7 @@ void getKeyBoardInput::pidControlSequance(int key){
         case KEY_LEFT: 
             message_angle.data -= 5;
             printw("ANGLE LEFT : %f \n" , message_angle.data);
+            refresh();
             publisher_angle->publish(message_angle);
             //PUBLISH ANGLE REF HERE
             break;
@@ -112,8 +136,17 @@ void getKeyBoardInput::pidControlSequance(int key){
         case KEY_RIGHT:
             message_angle.data += 5;
             printw("ANGLE RIGHT : %f \n" , message_angle.data);
+            refresh();
             publisher_angle->publish(message_angle);
             //PUBLISH ANGLE REF HERE
+            break;
+        
+        case KEY_Q:
+            quitControl();
+            break;
+
+        case KEY_HOME:
+            updateStateTo(MCMState::STANDBY);
             break;
 
         default:
@@ -121,16 +154,126 @@ void getKeyBoardInput::pidControlSequance(int key){
             printw("Got %d \n", key);
             printw("Clear Terminal \n");
             printw("SPEED : %f, ANGLE : %f\n", message_speed.data, message_angle.data);
+            refresh();
             break;
         }
+    }
+    refresh();
+    endwin();
 }
 
-int getKeyBoardInput::controlSelectSequance(int key){
+void getKeyBoardInput::controlSelectSequance(){
 
+    auto message_control_cmd = std_msgs::msg::Int32();
+    int key = getcontrolSelectKey();
+    publisher_angle->publish(message_angle);
+    switch (key)
+    {
+        case KEY_1:
+            printw("Enable ALL (ACC, BRK, STR) \n");
+            refresh();
+            message_control_cmd.data = 1;
+            publisher_control_cmd->publish(message_control_cmd);
+            break;
+            
+        case KEY_2:
+            printw("Enable STR only \n");
+            refresh();
+            message_control_cmd.data = 2;
+            publisher_control_cmd->publish(message_control_cmd);
+            break;
+        
+        case KEY_3:
+            printw("Enable ACC, BRK only \n");
+            refresh();
+            message_control_cmd.data = 3;
+            publisher_control_cmd->publish(message_control_cmd);
+            break;
+
+        case KEY_Q:
+            quitControl();
+            break;
+
+        default:
+            printw("Got %d \n", key);
+            break;
+    }
+    sleep(1);
 }
+
+void getKeyBoardInput::overrideHandler(){
+    faultHandler();    
+    clear();
+    printw("Override Detected!! \n");
+    printw("Override Detected!! \n");
+    printw("Override Detected!! \n");
+    refresh();
+}
+
+void getKeyBoardInput::broadCastFault(){
+    //Broadcast Fault State to all nodes
+}
+
+MCMState getKeyBoardInput::returnState(){
+    MCMState tmp;
+    MCM_State_Lock.lock();
+    tmp = mcm_State;
+    MCM_State_Lock.unlock();
+    return tmp;
+}
+
+void getKeyBoardInput::updateState(const std_msgs::msg::Int32::SharedPtr msg){
+    printw("Control Enabled! \n");
+    refresh();
+    publisher_speed->publish(message_speed);
+    if(msg->data == 1){
+
+        printw("Control Enabled! \n");
+        printw("Control Enabled! \n");
+        printw("Control Enabled! \n");
+    }
+    else if(msg->data == 2){
+        overrideHandler();
+    }
+    updateStateTo(msg->data);
+}
+
+void getKeyBoardInput::updateStateTo(int state){
+    MCM_State_Lock.lock();
+    mcm_State = MCMState(state);
+    MCM_State_Lock.unlock();
+}
+
+void getKeyBoardInput::faultHandler(){
+    if(returnState() == MCMState::PIDControl){
+        //Send Dummy out to getchar
+        std::cout << KEY_HOME;
+    }
+}
+
+void getKeyBoardInput::quitControl(){
+    printw("QUIT CONTROL, SEND (0, 0) for speed & angle\n");
+    printw("Terminate KeyboardInputNode after 5 sec\n");
+    endwin();
+    exit(0);
+}
+
+int getKeyBoardInput::getcontrolSelectKey(){
+    printw("=====[CONTROL SELECT]=====\n");
+    printw("1 : Enable All (ACC, BRK, STR)\n");
+    printw("2 : Enable STR only \n");
+    printw("3 : Enable ACC, BRK only \n");
+    printw("q : EXIT\n");
+    refresh();
+    int key = getch();
+    return key;
+}
+
+
 
 int main(int argc, char * argv[])
 {
+
   rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<getKeyBoardInput>());
   rclcpp::shutdown();

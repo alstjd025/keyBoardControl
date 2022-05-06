@@ -4,7 +4,7 @@ project(keyboardcontrol)
 set(LIBCURSES /usr/lib/x86_64-linux-gnu/libcurses.so)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+  add_compile_options(-Wall -Wextra -Wpedantic -pthread)
 endif()
 
 # find dependencies
@@ -16,6 +16,7 @@ find_package(std_msgs REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
+include_directories(include)
 
 add_executable(getKeyBoard src/getKeyBoardInputnode.cc)
 ament_target_dependencies(getKeyBoard rclcpp std_msgs)

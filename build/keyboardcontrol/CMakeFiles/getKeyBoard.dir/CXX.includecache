@@ -6,6 +6,32 @@
 
 #IncludeRegexTransform: 
 
+/home/misys/keyBoardControl/include/keyboardcontrol/getKeyBoardInputnode.hpp
+chrono
+-
+functional
+-
+memory
+-
+string
+-
+ncurses.h
+-
+iostream
+-
+mutex
+-
+unistd.h
+-
+thread
+-
+rclcpp/rclcpp.hpp
+/home/misys/keyBoardControl/include/keyboardcontrol/rclcpp/rclcpp.hpp
+std_msgs/msg/float32.hpp
+/home/misys/keyBoardControl/include/keyboardcontrol/std_msgs/msg/float32.hpp
+std_msgs/msg/int32.hpp
+/home/misys/keyBoardControl/include/keyboardcontrol/std_msgs/msg/int32.hpp
+
 /home/misys/keyBoardControl/src/getKeyBoardInputnode.cc
 chrono
 -
@@ -23,6 +49,8 @@ rclcpp/rclcpp.hpp
 /home/misys/keyBoardControl/src/rclcpp/rclcpp.hpp
 std_msgs/msg/float32.hpp
 /home/misys/keyBoardControl/src/std_msgs/msg/float32.hpp
+../include/keyboardcontrol/getKeyBoardInputnode.hpp
+/home/misys/keyBoardControl/include/keyboardcontrol/getKeyBoardInputnode.hpp
 
 /opt/ros/galactic/include/builtin_interfaces/msg/detail/duration__builder.hpp
 builtin_interfaces/msg/detail/duration__struct.hpp
@@ -4558,6 +4586,46 @@ string
 type_traits
 -
 
+/opt/ros/galactic/include/std_msgs/msg/detail/int32__builder.hpp
+std_msgs/msg/detail/int32__struct.hpp
+/opt/ros/galactic/include/std_msgs/msg/detail/std_msgs/msg/detail/int32__struct.hpp
+rosidl_runtime_cpp/message_initialization.hpp
+-
+algorithm
+-
+utility
+-
+
+/opt/ros/galactic/include/std_msgs/msg/detail/int32__struct.hpp
+rosidl_runtime_cpp/bounded_vector.hpp
+-
+rosidl_runtime_cpp/message_initialization.hpp
+-
+algorithm
+-
+array
+-
+memory
+-
+string
+-
+vector
+-
+
+/opt/ros/galactic/include/std_msgs/msg/detail/int32__traits.hpp
+std_msgs/msg/detail/int32__struct.hpp
+/opt/ros/galactic/include/std_msgs/msg/detail/std_msgs/msg/detail/int32__struct.hpp
+stdint.h
+-
+rosidl_runtime_cpp/traits.hpp
+-
+sstream
+-
+string
+-
+type_traits
+-
+
 /opt/ros/galactic/include/std_msgs/msg/float32.hpp
 std_msgs/msg/detail/float32__struct.hpp
 /opt/ros/galactic/include/std_msgs/msg/std_msgs/msg/detail/float32__struct.hpp
@@ -4565,6 +4633,14 @@ std_msgs/msg/detail/float32__builder.hpp
 /opt/ros/galactic/include/std_msgs/msg/std_msgs/msg/detail/float32__builder.hpp
 std_msgs/msg/detail/float32__traits.hpp
 /opt/ros/galactic/include/std_msgs/msg/std_msgs/msg/detail/float32__traits.hpp
+
+/opt/ros/galactic/include/std_msgs/msg/int32.hpp
+std_msgs/msg/detail/int32__struct.hpp
+/opt/ros/galactic/include/std_msgs/msg/std_msgs/msg/detail/int32__struct.hpp
+std_msgs/msg/detail/int32__builder.hpp
+/opt/ros/galactic/include/std_msgs/msg/std_msgs/msg/detail/int32__builder.hpp
+std_msgs/msg/detail/int32__traits.hpp
+/opt/ros/galactic/include/std_msgs/msg/std_msgs/msg/detail/int32__traits.hpp
 
 /opt/ros/galactic/include/tracetools/config.h
 
