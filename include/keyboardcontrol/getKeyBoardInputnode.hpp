@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <thread>
 #include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/float32.hpp"
+#include "std_msgs/msg/float64.hpp"
 #include "std_msgs/msg/int32.hpp"
 
 using namespace std::chrono_literals;
@@ -53,8 +53,8 @@ class getKeyBoardInput : public rclcpp::Node
 {
   public:
 
-    std_msgs::msg::Float32 message_speed;
-    std_msgs::msg::Float32 message_angle;
+    std_msgs::msg::Float64 message_speed;
+    std_msgs::msg::Float64 message_angle;
     std_msgs::msg::Int32 message_control_cmd;
   
     getKeyBoardInput();
@@ -85,8 +85,8 @@ class getKeyBoardInput : public rclcpp::Node
     std::mutex MCM_State_Lock;
 
 
-    rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr publisher_speed;
-    rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr publisher_angle;
+    rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_speed;
+    rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_angle;
     rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr publisher_control_cmd;
 
     //MCM State Subscription. Subject to change.

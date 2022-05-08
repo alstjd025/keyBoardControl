@@ -5,7 +5,7 @@
 #include <ncurses.h>
 #include <iostream>
 #include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/float32.hpp"
+#include "std_msgs/msg/float64.hpp"
 #include "../include/keyboardcontrol/getKeyBoardInputnode.hpp"
 
 using namespace std::chrono_literals;
@@ -25,8 +25,8 @@ using namespace std::chrono_literals;
 getKeyBoardInput::getKeyBoardInput()
 : Node("minimal_publisher")
 {
-    publisher_speed = this->create_publisher<std_msgs::msg::Float32>("ref_vel", 10);
-    publisher_angle = this->create_publisher<std_msgs::msg::Float32>("ref_ang", 10);
+    publisher_speed = this->create_publisher<std_msgs::msg::Float64>("ref_vel", 10);
+    publisher_angle = this->create_publisher<std_msgs::msg::Float64>("ref_ang", 10);
     publisher_control_cmd = this->create_publisher<std_msgs::msg::Int32>("CONTROL_CMD", 10);
     mcm_state_sub = this->create_subscription<std_msgs::msg::Int32>(
         "mcm_status", 10, std::bind(&getKeyBoardInput::updateState, this, _1));
@@ -270,6 +270,7 @@ void getKeyBoardInput::printpidControlKey(){
     printw("DOWN :     REF SPEED -5 km/h \n");
     printw("RIGHT:     REF ANGLE +5 '    \n");
     printw("LEFT :     REF ANGLE -5 '    \n");
+    printw("SPACE:     Brake             \n");
     refresh();
 }
 
