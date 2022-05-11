@@ -21,6 +21,7 @@ using std::thread;
 #define KEY_1     49
 #define KEY_2     50
 #define KEY_3     51
+#define DOT       46
 
 /* This example creates a subclass of Node and uses std::bind() to register a
 * member function as a callback from the timer. */
@@ -56,6 +57,7 @@ class getKeyBoardInput : public rclcpp::Node
     std_msgs::msg::Float64 message_speed;
     std_msgs::msg::Float64 message_angle;
     std_msgs::msg::Int32 message_control_cmd;
+    std_msgs::msg::Int32 message_external_cmd;
   
     getKeyBoardInput();
     ~getKeyBoardInput();
@@ -76,7 +78,8 @@ class getKeyBoardInput : public rclcpp::Node
 
     //Use this function as callback for mcm_state Subscriptor
     void updateState(const std_msgs::msg::Int32::SharedPtr msg);
-    
+    void externCMD();
+
     MCMState returnState();
     void updateStateTo(int state);
 
@@ -88,6 +91,7 @@ class getKeyBoardInput : public rclcpp::Node
     rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_speed;
     rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_angle;
     rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr publisher_control_cmd;
+    rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr publisher_external_cmd;
 
     //MCM State Subscription. Subject to change.
     rclcpp::Subscription<std_msgs::msg::Int32>::SharedPtr mcm_state_sub;

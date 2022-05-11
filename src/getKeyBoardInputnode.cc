@@ -28,6 +28,8 @@ getKeyBoardInput::getKeyBoardInput()
     publisher_speed = this->create_publisher<std_msgs::msg::Float64>("ref_vel", 10);
     publisher_angle = this->create_publisher<std_msgs::msg::Float64>("ref_ang", 10);
     publisher_control_cmd = this->create_publisher<std_msgs::msg::Int32>("CONTROL_CMD", 10);
+    publisher_external_cmd = this->create_publisher<std_msgs::msg::Int32>("EXTERN_CMD", 10);
+
     mcm_state_sub = this->create_subscription<std_msgs::msg::Int32>(
         "mcm_status", 10, std::bind(&getKeyBoardInput::updateState, this, _1));
     mcm_State = STANDBY;
@@ -81,11 +83,13 @@ void getKeyBoardInput::pidControlSequance(){
     int key;
     printpidControlKey();
     while(key != 'q' && returnState() == MCMState::PIDControl){
+        
         key = getch();
         if(returnState() != MCMState::PIDControl){
             return;
         }
         switch(key) {
+            clear();
             case KEY_SPACE: //Brake for Gear Shift
                 printw("Brake! \n");
                 refresh();
@@ -93,7 +97,7 @@ void getKeyBoardInput::pidControlSequance(){
                 publisher_speed->publish(message_speed);
                 message_speed.data = 0;
                 break;
-
+                                                                       
             case KEY_UP:
                 if(message_speed.data < 100){ 
                     message_speed.data += 5;
@@ -141,6 +145,13 @@ void getKeyBoardInput::pidControlSequance(){
             case KEY_Q:
                 quitControl();
                 break;
+            
+            case DOT:
+                printw("Init iterm\n");
+                refresh();
+                message_external_cmd.data = 1;
+                publisher_external_cmd->publish(message_external_cmd);
+                break;
 
             case KEY_HOME:
                 updateStateTo(MCMState::STANDBY);
@@ -158,6 +169,7 @@ void getKeyBoardInput::pidControlSequance(){
     refresh();
     endwin();
 }
+
 
 void getKeyBoardInput::controlSelectSequance(){
 
@@ -195,6 +207,7 @@ void getKeyBoardInput::controlSelectSequance(){
 
         default:
             printw("Got %d \n", key);
+            refresh();
             break;
     }
     sleep(1);
@@ -275,6 +288,7 @@ void getKeyBoardInput::printpidControlKey(){
 }
 
 int getKeyBoardInput::getcontrolSelectKey(){
+    clear();
     printw("=====[CONTROL SELECT]=====\n");
     printw("1 : Enable All (ACC, BRK, STR)\n");
     printw("2 : Enable STR only \n");
