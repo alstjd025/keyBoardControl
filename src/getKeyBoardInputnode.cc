@@ -147,10 +147,11 @@ void getKeyBoardInput::pidControlSequance(){
                 break;
             
             case DOT:
-                printw("Init iterm\n");
+                printw("Control Disable\n");
                 refresh();
-                message_external_cmd.data = 1;
-                publisher_external_cmd->publish(message_external_cmd);
+                auto message_control_cmd = std_msgs::msg::Int32();
+                message_control_cmd.data = 0;
+                publisher_control_cmd->publish(message_control_cmd);    
                 break;
 
             case KEY_HOME:
@@ -202,6 +203,8 @@ void getKeyBoardInput::controlSelectSequance(){
             break;
 
         case KEY_Q:
+            message_control_cmd.data = 0;
+            publisher_control_cmd->publish(message_control_cmd);
             quitControl();
             break;
 
