@@ -10,6 +10,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/float64.hpp"
 #include "std_msgs/msg/int32.hpp"
+#include "std_msgs/msg/float64_multi_array.hpp"
 
 using namespace std::chrono_literals;
 using std::placeholders::_1;
@@ -22,6 +23,9 @@ using std::thread;
 #define KEY_2     50
 #define KEY_3     51
 #define DOT       46
+
+#define ANG       13
+#define VEL       5
 
 /* This example creates a subclass of Node and uses std::bind() to register a
 * member function as a callback from the timer. */
@@ -53,6 +57,7 @@ enum MCMState{
 class getKeyBoardInput : public rclcpp::Node
 {
   public:
+    float cur_angle;
 
     std_msgs::msg::Float64 message_speed;
     std_msgs::msg::Float64 message_angle;
@@ -78,6 +83,8 @@ class getKeyBoardInput : public rclcpp::Node
 
     //Use this function as callback for mcm_state Subscriptor
     void updateState(const std_msgs::msg::Int32::SharedPtr msg);
+    void updateCurAngle(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
+
     void externCMD();
 
     MCMState returnState();
@@ -95,5 +102,5 @@ class getKeyBoardInput : public rclcpp::Node
 
     //MCM State Subscription. Subject to change.
     rclcpp::Subscription<std_msgs::msg::Int32>::SharedPtr mcm_state_sub;
-
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>SharedPtr sas_angle_sub;
 };
