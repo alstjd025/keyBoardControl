@@ -102,5 +102,5 @@ class getKeyBoardInput : public rclcpp::Node
 
     //MCM State Subscription. Subject to change.
     rclcpp::Subscription<std_msgs::msg::Int32>::SharedPtr mcm_state_sub;
-    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>SharedPtr sas_angle_sub;
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr sas_angle_sub;
 };

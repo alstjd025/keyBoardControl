@@ -31,6 +31,10 @@ getKeyBoardInput::getKeyBoardInput()
     mcm_state_sub = this->create_subscription<std_msgs::msg::Int32>(
         "mcm_status", 10, std::bind(&getKeyBoardInput::updateState, this, _1));
 
+    sas_angle_sub = this->create_subscription<std_msgs::msg::Float64MultiArray>(
+        "SAS11", 10, std::bind(&getKeyBoardInput::updateCurAngle, this, _1));
+
+
     mcm_State = STANDBY;
     message_speed.data = 0;
     message_angle.data = 0;
@@ -60,8 +64,11 @@ void getKeyBoardInput::standby()
             break;
 
         case MCMState::OVERRIDE:
+            printw("CASE OVERRIDE\n");
+            refresh();
             message_speed.data = 0;
-            message_angle.data = 0;
+            //message_angle.data = 0;
+            //publisher_angle->publish(message_angle);
             faultHandler();
             break;
 
@@ -81,8 +88,12 @@ void getKeyBoardInput::pidControlSequance()
     clear();
     int key;
     printpidControlKey();
-    message_angle.data = cur_angle;
-    publisher_angle->publish(message_angle);
+    message_angle.data = -cur_angle;
+    clear();
+    printw("cur angle : %f\n", cur_angle);
+    refresh();
+    //publisher_angle->publish(message_angle);
+    auto message_control_cmd = std_msgs::msg::Int32();
     while (key != 'q' && returnState() == MCMState::PIDControl)
     {
         key = getch();
@@ -158,7 +169,6 @@ void getKeyBoardInput::pidControlSequance()
         case DOT:
             printw("Control Disable\n");
             refresh();
-            auto message_control_cmd = std_msgs::msg::Int32();
             message_control_cmd.data = 0;
             publisher_control_cmd->publish(message_control_cmd);
             break;
@@ -182,7 +192,6 @@ void getKeyBoardInput::pidControlSequance()
 
 void getKeyBoardInput::controlSelectSequance()
 {
-
     auto message_control_cmd = std_msgs::msg::Int32();
     int key = getcontrolSelectKey();
     if (returnState() == MCMState::PIDControl)

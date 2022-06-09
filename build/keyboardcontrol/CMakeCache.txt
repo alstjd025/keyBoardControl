@@ -275,7 +275,7 @@ TinyXML2_DIR:PATH=TinyXML2_DIR-NOTFOUND
 _lib:FILEPATH=/opt/ros/galactic/lib/librosgraph_msgs__rosidl_typesupport_fastrtps_cpp.so
 
 //The directory containing a CMake configuration file for ament_cmake.
-ament_cmake_DIR:PATH=ament_cmake_DIR-NOTFOUND
+ament_cmake_DIR:PATH=/opt/ros/galactic/share/ament_cmake/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_core.
 ament_cmake_core_DIR:PATH=/opt/ros/galactic/share/ament_cmake_core/cmake
