@@ -47,18 +47,28 @@ using std::thread;
 // 3 : MCM in Fault
 
 enum MCMState{
-    STANDBY,
-    PIDControl,
-    OVERRIDE,
-    FAULT,
-    QUIT
+  STANDBY,
+  CONTROL_ENABLE,
+  OVERRIDE,
+  FAULT,
+  QUIT,
+  AUTOPILOT_STANDBY,
+  AUTOPILOT_SET,
+  AUTOPILOT_ON,
+  WAITGEAR,
+  KEYBOARD,
+};
+
+enum SETPID{
+  PID_STANDBY,
+  PID_ON,
+  PID_OFF,
 };
 
 class getKeyBoardInput : public rclcpp::Node
 {
   public:
-    float cur_angle;
-
+    
     std_msgs::msg::Float64 message_speed;
     std_msgs::msg::Float64 message_angle;
     std_msgs::msg::Int32 message_control_cmd;
@@ -72,7 +82,10 @@ class getKeyBoardInput : public rclcpp::Node
     int getcontrolSelectKey();  
     void pidControlSequance();
     void printpidControlKey();
-  
+    void printGearChange();
+    int getModeSelectKey();
+    int AutoPilotMenu();
+    void printAutoPilotState();
 
     void overrideHandler();
     void faultHandler();
@@ -85,14 +98,34 @@ class getKeyBoardInput : public rclcpp::Node
     void updateState(const std_msgs::msg::Int32::SharedPtr msg);
     void updateCurAngle(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
 
+    void v2xCB(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
+    void curAngCB(const std_msgs::msg::Float64::SharedPtr msg);
+    void curVelCB(const std_msgs::msg::Float64::SharedPtr msg);
+
+    void refAngCB(const std_msgs::msg::Float64::SharedPtr msg);
+    void refVelCB(const std_msgs::msg::Float64::SharedPtr msg);
+
+
+
     void externCMD();
 
     MCMState returnState();
+
     void updateStateTo(int state);
 
   private:
+    bool control_enabled;
+    int cur_gear;
+    char* cur_gear_c;
+
+    float cur_vel;
+    float cur_ang;
+    float ref_ang;
+    float ref_vel;
+
     MCMState mcm_State;
     std::mutex MCM_State_Lock;
+    std::mutex General_State_Lock;
 
 
     rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_speed;
@@ -102,5 +135,11 @@ class getKeyBoardInput : public rclcpp::Node
 
     //MCM State Subscription. Subject to change.
     rclcpp::Subscription<std_msgs::msg::Int32>::SharedPtr mcm_state_sub;
-    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr sas_angle_sub;
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr v2x_sub;
+
+    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr cur_angle_sub;
+    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr cur_vel_sub;
+
+    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr ref_angle_sub;
+    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr ref_vel_sub;
 };

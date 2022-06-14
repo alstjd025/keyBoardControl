@@ -31,9 +31,19 @@ getKeyBoardInput::getKeyBoardInput()
     mcm_state_sub = this->create_subscription<std_msgs::msg::Int32>(
         "mcm_status", 10, std::bind(&getKeyBoardInput::updateState, this, _1));
 
-    sas_angle_sub = this->create_subscription<std_msgs::msg::Float64MultiArray>(
-        "SAS11", 10, std::bind(&getKeyBoardInput::updateCurAngle, this, _1));
+    cur_angle_sub = this->create_subscription<std_msgs::msg::Float64>(
+        "cur_ang", 10, std::bind(&getKeyBoardInput::curAngCB, this, _1));
+    cur_vel_sub = this->create_subscription<std_msgs::msg::Float64>(
+        "cur_vel", 10, std::bind(&getKeyBoardInput::curVelCB, this, _1));
 
+    ref_angle_sub = this->create_subscription<std_msgs::msg::Float64>(
+        "ref_ang", 10, std::bind(&getKeyBoardInput::refAngCB, this, _1));
+    ref_vel_sub = this->create_subscription<std_msgs::msg::Float64>(
+        "ref_vel", 10, std::bind(&getKeyBoardInput::refVelCB, this, _1));
+
+
+    v2x_sub = this->create_subscription<std_msgs::msg::Float64MultiArray>(
+        "v2x", 10,  std::bind(&getKeyBoardInput::v2xCB, this, _1));
 
     mcm_State = STANDBY;
     message_speed.data = 0;
@@ -59,7 +69,19 @@ void getKeyBoardInput::standby()
             controlSelectSequance();
             break;
 
-        case MCMState::PIDControl:
+        case MCMState::AUTOPILOT_STANDBY:
+            printGearChange();
+            break;
+
+        case MCMState::AUTOPILOT_SET:
+            AutoPilotMenu();
+            break;
+
+        case MCMState::AUTOPILOT_ON:
+            printAutoPilotState();
+            break;
+
+        case MCMState::KEYBOARD:
             pidControlSequance();
             break;
 
@@ -88,16 +110,15 @@ void getKeyBoardInput::pidControlSequance()
     clear();
     int key;
     printpidControlKey();
-    message_angle.data = -cur_angle;
+    message_angle.data = -cur_ang;
     clear();
-    printw("cur angle : %f\n", cur_angle);
     refresh();
     //publisher_angle->publish(message_angle);
     auto message_control_cmd = std_msgs::msg::Int32();
-    while (key != 'q' && returnState() == MCMState::PIDControl)
+    while (key != 'q' && returnState() == MCMState::CONTROL_ENABLE)
     {
         key = getch();
-        if (returnState() != MCMState::PIDControl)
+        if (returnState() != MCMState::CONTROL_ENABLE)
         {
             return;
         }
@@ -194,7 +215,7 @@ void getKeyBoardInput::controlSelectSequance()
 {
     auto message_control_cmd = std_msgs::msg::Int32();
     int key = getcontrolSelectKey();
-    if (returnState() == MCMState::PIDControl)
+    if (returnState() == MCMState::CONTROL_ENABLE)
     {
         return;
     }
@@ -233,6 +254,35 @@ void getKeyBoardInput::controlSelectSequance()
         break;
     }
     sleep(1);
+    key = getModeSelectKey();
+    auto ext_msg = std_msgs::msg::Int32::SharedPtr(
+                    new std_msgs::msg::Int32);
+    switch (key)
+    {
+    case KEY_1:
+        ext_msg->data = SETPID::PID_STANDBY;
+        publisher_external_cmd->publish(*ext_msg);
+        
+        break;
+    case KEY_2:
+        ext_msg->data = SETPID::PID_STANDBY;
+        publisher_external_cmd->publish(*ext_msg);
+        /* KeyBoardControl mode selected
+           should publish 1 to ext_cmd
+         */
+        break;
+    case KEY_3:
+        /* goto prev step
+           should publish 1 to ext_cmd
+         */
+        break;
+    case KEY_Q:
+        quitControl();
+        break;
+
+    default:
+        break;
+    }
 }
 
 void getKeyBoardInput::overrideHandler()
@@ -276,16 +326,58 @@ void getKeyBoardInput::updateState(const std_msgs::msg::Int32::SharedPtr msg)
     }
 }
 
-void getKeyBoardInput::updateCurAngle(const std_msgs::msg::Float64MultiArray::SharedPtr msg)
+void getKeyBoardInput::curAngCB(const std_msgs::msg::Float64::SharedPtr msg)
 {
-    auto whl_ang = msg->data.begin();
-    cur_angle = *whl_ang;
+    cur_ang = msg->data;
+}
+
+void getKeyBoardInput::curVelCB(const std_msgs::msg::Float64::SharedPtr msg)
+{
+    cur_vel = msg->data;
+}
+
+void getKeyBoardInput::refAngCB(const std_msgs::msg::Float64::SharedPtr msg)
+{
+    ref_ang = msg->data;
+}
+
+void getKeyBoardInput::refVelCB(const std_msgs::msg::Float64::SharedPtr msg)
+{
+    ref_vel = msg->data;
+}
+
+
+void getKeyBoardInput::v2xCB(const std_msgs::msg::Float64MultiArray::SharedPtr msg)
+{
+    switch (static_cast<int>(msg->data[1]))
+    {
+    case 5: //Drive
+        cur_gear_c = "D";
+        break;
+    case 0: //Parking
+        cur_gear_c = "P";
+        break;
+    case 6: //Reverse
+        cur_gear_c = "R";
+        break;
+    case 7: //Neutral
+        cur_gear_c = "N";
+        break;
+    default:
+        break;
+    }
 }
 
 void getKeyBoardInput::updateStateTo(int state)
 {
     MCM_State_Lock.lock();
     mcm_State = MCMState(state);
+    if(state == 1){
+        control_enabled = true;
+    }
+    else{
+        control_enabled = false;
+    }
     refresh();
     MCM_State_Lock.unlock();
 }
@@ -317,6 +409,7 @@ void getKeyBoardInput::quitControl()
 
 void getKeyBoardInput::printpidControlKey()
 {
+    clear();
     printw("=====[PID TEST]=====\n");
     printw("UP   :     REF SPEED +5 km/h \n");
     printw("DOWN :     REF SPEED -5 km/h \n");
@@ -324,6 +417,64 @@ void getKeyBoardInput::printpidControlKey()
     printw("LEFT :     REF ANGLE -5 '    \n");
     printw("SPACE:     Brake             \n");
     refresh();
+}
+
+int getKeyBoardInput::getModeSelectKey()
+{
+    clear();
+    printw("=====[MODE SELECT]=====\n");
+    printw("1 : AUTOPILOT (Control by Autoware.univ - ICHTHUS) \n");
+    printw("2 : KEYBOARD  (Control by KeyboardInput - USER) \n");
+    printw("3 : Disable control & Return to fisrt step  \n");
+    printw("Q : Quit \n");
+    refresh();
+    int key = getch();
+    return key;
+}
+
+int getKeyBoardInput::AutoPilotMenu()
+{
+    clear();
+    printw("=====[AUTOPILOT SET]=====\n");
+    printw("1 : Start Control \n");
+    printw("2 : Stop Control \n");
+    printw("3 : Disable control & Return to fisrt step  \n");
+    refresh();
+    int key = getch();
+    switch (key)
+    {
+    case 1:
+        /* code */
+        break;
+    case 2:
+    
+    default:
+        break;
+    }
+}
+
+void getKeyBoardInput::printAutoPilotState()
+{
+    clear();
+    printw("=====[AUTOPILOT State Report]=====\n");
+    printw("Current Velocity : %f km/h\n", cur_vel);
+    printw("Ref Velocity     : %f km/h\n", ref_vel);
+    printw("Current Steering Wheel Angle : %f deg\n", cur_ang);
+    printw("Ref Steering Wheel Angle     : %f deg\n", ref_ang);
+    refresh();
+}
+
+void getKeyBoardInput::printGearChange()
+{
+    clear();
+    printw("=====[STANDBY STEP]=====\n");
+    printw("Please shift gear to D (drive) to continue\n");
+    printw("Current gear : %c \n", *cur_gear_c);
+    refresh();
+    if(cur_gear == 5){
+        sleep(1);
+        updateStateTo(MCMState::AUTOPILOT_SET);
+    }
 }
 
 int getKeyBoardInput::getcontrolSelectKey()
