@@ -26,7 +26,7 @@ getKeyBoardInput::getKeyBoardInput()
     publisher_speed = this->create_publisher<std_msgs::msg::Float64>("ref_vel", 10);
     publisher_angle = this->create_publisher<std_msgs::msg::Float64>("ref_ang", 10);
     publisher_control_cmd = this->create_publisher<std_msgs::msg::Int32>("CONTROL_CMD", 10);
-    publisher_external_cmd = this->create_publisher<std_msgs::msg::Int32>("EXTERN_CMD", 10);
+    publisher_external_cmd = this->create_publisher<std_msgs::msg::Int32>("extern_cmd", 10);
 
     mcm_state_sub = this->create_subscription<std_msgs::msg::Int32>(
         "mcm_status", 10, std::bind(&getKeyBoardInput::updateState, this, _1));
