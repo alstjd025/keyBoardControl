@@ -272,70 +272,70 @@ SITE:STRING=misys-desktop
 TinyXML2_DIR:PATH=TinyXML2_DIR-NOTFOUND
 
 //Path to a library.
-_lib:FILEPATH=/opt/ros/galactic/lib/librosgraph_msgs__rosidl_typesupport_fastrtps_cpp.so
+_lib:FILEPATH=/home/misys/ros2_galactic/install/rosgraph_msgs/lib/librosgraph_msgs__rosidl_typesupport_fastrtps_cpp.so
 
 //The directory containing a CMake configuration file for ament_cmake.
-ament_cmake_DIR:PATH=/opt/ros/galactic/share/ament_cmake/cmake
+ament_cmake_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake/share/ament_cmake/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_core.
-ament_cmake_core_DIR:PATH=/opt/ros/galactic/share/ament_cmake_core/cmake
+ament_cmake_core_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_core/share/ament_cmake_core/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_export_definitions.
-ament_cmake_export_definitions_DIR:PATH=/opt/ros/galactic/share/ament_cmake_export_definitions/cmake
+ament_cmake_export_definitions_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_export_definitions/share/ament_cmake_export_definitions/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_export_dependencies.
-ament_cmake_export_dependencies_DIR:PATH=/opt/ros/galactic/share/ament_cmake_export_dependencies/cmake
+ament_cmake_export_dependencies_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_export_dependencies/share/ament_cmake_export_dependencies/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_export_include_directories.
-ament_cmake_export_include_directories_DIR:PATH=/opt/ros/galactic/share/ament_cmake_export_include_directories/cmake
+ament_cmake_export_include_directories_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_export_include_directories/share/ament_cmake_export_include_directories/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_export_interfaces.
-ament_cmake_export_interfaces_DIR:PATH=/opt/ros/galactic/share/ament_cmake_export_interfaces/cmake
+ament_cmake_export_interfaces_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_export_interfaces/share/ament_cmake_export_interfaces/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_export_libraries.
-ament_cmake_export_libraries_DIR:PATH=/opt/ros/galactic/share/ament_cmake_export_libraries/cmake
+ament_cmake_export_libraries_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_export_libraries/share/ament_cmake_export_libraries/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_export_link_flags.
-ament_cmake_export_link_flags_DIR:PATH=/opt/ros/galactic/share/ament_cmake_export_link_flags/cmake
+ament_cmake_export_link_flags_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_export_link_flags/share/ament_cmake_export_link_flags/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_export_targets.
-ament_cmake_export_targets_DIR:PATH=/opt/ros/galactic/share/ament_cmake_export_targets/cmake
+ament_cmake_export_targets_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_export_targets/share/ament_cmake_export_targets/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_include_directories.
-ament_cmake_include_directories_DIR:PATH=/opt/ros/galactic/share/ament_cmake_include_directories/cmake
+ament_cmake_include_directories_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_include_directories/share/ament_cmake_include_directories/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_libraries.
-ament_cmake_libraries_DIR:PATH=/opt/ros/galactic/share/ament_cmake_libraries/cmake
+ament_cmake_libraries_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_libraries/share/ament_cmake_libraries/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_python.
-ament_cmake_python_DIR:PATH=/opt/ros/galactic/share/ament_cmake_python/cmake
+ament_cmake_python_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_python/share/ament_cmake_python/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_target_dependencies.
-ament_cmake_target_dependencies_DIR:PATH=/opt/ros/galactic/share/ament_cmake_target_dependencies/cmake
+ament_cmake_target_dependencies_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_target_dependencies/share/ament_cmake_target_dependencies/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_test.
-ament_cmake_test_DIR:PATH=/opt/ros/galactic/share/ament_cmake_test/cmake
+ament_cmake_test_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_test/share/ament_cmake_test/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_version.
-ament_cmake_version_DIR:PATH=/opt/ros/galactic/share/ament_cmake_version/cmake
+ament_cmake_version_DIR:PATH=/home/misys/ros2_galactic/install/ament_cmake_version/share/ament_cmake_version/cmake
 
 //The directory containing a CMake configuration file for ament_index_cpp.
-ament_index_cpp_DIR:PATH=/opt/ros/galactic/share/ament_index_cpp/cmake
+ament_index_cpp_DIR:PATH=/home/misys/ros2_galactic/install/ament_index_cpp/share/ament_index_cpp/cmake
 
 //The directory containing a CMake configuration file for builtin_interfaces.
-builtin_interfaces_DIR:PATH=/opt/ros/galactic/share/builtin_interfaces/cmake
+builtin_interfaces_DIR:PATH=/home/misys/ros2_galactic/install/builtin_interfaces/share/builtin_interfaces/cmake
 
 //The directory containing a CMake configuration file for fastcdr.
-fastcdr_DIR:PATH=/opt/ros/galactic/lib/cmake/fastcdr
+fastcdr_DIR:PATH=/home/misys/ros2_galactic/install/fastcdr/lib/cmake/fastcdr
 
 //The directory containing a CMake configuration file for fastrtps.
-fastrtps_DIR:PATH=/opt/ros/galactic/share/fastrtps/cmake
+fastrtps_DIR:PATH=/home/misys/ros2_galactic/install/fastrtps/share/fastrtps/cmake
 
 //The directory containing a CMake configuration file for fastrtps_cmake_module.
-fastrtps_cmake_module_DIR:PATH=/opt/ros/galactic/share/fastrtps_cmake_module/cmake
+fastrtps_cmake_module_DIR:PATH=/home/misys/ros2_galactic/install/fastrtps_cmake_module/share/fastrtps_cmake_module/cmake
 
 //The directory containing a CMake configuration file for foonathan_memory.
-foonathan_memory_DIR:PATH=/opt/ros/galactic/lib/foonathan_memory/cmake
+foonathan_memory_DIR:PATH=/home/misys/ros2_galactic/install/foonathan_memory_vendor/lib/foonathan_memory/cmake
 
 //Value Computed by CMake
 keyboardcontrol_BINARY_DIR:STATIC=/home/misys/keyBoardControl/build/keyboardcontrol
@@ -344,10 +344,10 @@ keyboardcontrol_BINARY_DIR:STATIC=/home/misys/keyBoardControl/build/keyboardcont
 keyboardcontrol_SOURCE_DIR:STATIC=/home/misys/keyBoardControl
 
 //The directory containing a CMake configuration file for libstatistics_collector.
-libstatistics_collector_DIR:PATH=/opt/ros/galactic/share/libstatistics_collector/cmake
+libstatistics_collector_DIR:PATH=/home/misys/ros2_galactic/install/libstatistics_collector/share/libstatistics_collector/cmake
 
 //The directory containing a CMake configuration file for libyaml_vendor.
-libyaml_vendor_DIR:PATH=/opt/ros/galactic/share/libyaml_vendor/cmake
+libyaml_vendor_DIR:PATH=/home/misys/ros2_galactic/install/libyaml_vendor/share/libyaml_vendor/cmake
 
 //Path to a library.
 pkgcfg_lib__OPENSSL_crypto:FILEPATH=/usr/lib/x86_64-linux-gnu/libcrypto.so
@@ -356,100 +356,100 @@ pkgcfg_lib__OPENSSL_crypto:FILEPATH=/usr/lib/x86_64-linux-gnu/libcrypto.so
 pkgcfg_lib__OPENSSL_ssl:FILEPATH=/usr/lib/x86_64-linux-gnu/libssl.so
 
 //The directory containing a CMake configuration file for rcl.
-rcl_DIR:PATH=/opt/ros/galactic/share/rcl/cmake
+rcl_DIR:PATH=/home/misys/ros2_galactic/install/rcl/share/rcl/cmake
 
 //The directory containing a CMake configuration file for rcl_interfaces.
-rcl_interfaces_DIR:PATH=/opt/ros/galactic/share/rcl_interfaces/cmake
+rcl_interfaces_DIR:PATH=/home/misys/ros2_galactic/install/rcl_interfaces/share/rcl_interfaces/cmake
 
 //The directory containing a CMake configuration file for rcl_logging_interface.
-rcl_logging_interface_DIR:PATH=/opt/ros/galactic/share/rcl_logging_interface/cmake
+rcl_logging_interface_DIR:PATH=/home/misys/ros2_galactic/install/rcl_logging_interface/share/rcl_logging_interface/cmake
 
 //The directory containing a CMake configuration file for rcl_logging_spdlog.
-rcl_logging_spdlog_DIR:PATH=/opt/ros/galactic/share/rcl_logging_spdlog/cmake
+rcl_logging_spdlog_DIR:PATH=/home/misys/ros2_galactic/install/rcl_logging_spdlog/share/rcl_logging_spdlog/cmake
 
 //The directory containing a CMake configuration file for rcl_yaml_param_parser.
-rcl_yaml_param_parser_DIR:PATH=/opt/ros/galactic/share/rcl_yaml_param_parser/cmake
+rcl_yaml_param_parser_DIR:PATH=/home/misys/ros2_galactic/install/rcl_yaml_param_parser/share/rcl_yaml_param_parser/cmake
 
 //The directory containing a CMake configuration file for rclcpp.
-rclcpp_DIR:PATH=/opt/ros/galactic/share/rclcpp/cmake
+rclcpp_DIR:PATH=/home/misys/ros2_galactic/install/rclcpp/share/rclcpp/cmake
 
 //The directory containing a CMake configuration file for rcpputils.
-rcpputils_DIR:PATH=/opt/ros/galactic/share/rcpputils/cmake
+rcpputils_DIR:PATH=/home/misys/ros2_galactic/install/rcpputils/share/rcpputils/cmake
 
 //The directory containing a CMake configuration file for rcutils.
-rcutils_DIR:PATH=/opt/ros/galactic/share/rcutils/cmake
+rcutils_DIR:PATH=/home/misys/ros2_galactic/install/rcutils/share/rcutils/cmake
 
 //The directory containing a CMake configuration file for rmw.
-rmw_DIR:PATH=/opt/ros/galactic/share/rmw/cmake
+rmw_DIR:PATH=/home/misys/ros2_galactic/install/rmw/share/rmw/cmake
 
 //The directory containing a CMake configuration file for rmw_cyclonedds_cpp.
-rmw_cyclonedds_cpp_DIR:PATH=/opt/ros/galactic/share/rmw_cyclonedds_cpp/cmake
+rmw_cyclonedds_cpp_DIR:PATH=/home/misys/ros2_galactic/install/rmw_cyclonedds_cpp/share/rmw_cyclonedds_cpp/cmake
 
 //The directory containing a CMake configuration file for rmw_dds_common.
-rmw_dds_common_DIR:PATH=/opt/ros/galactic/share/rmw_dds_common/cmake
+rmw_dds_common_DIR:PATH=/home/misys/ros2_galactic/install/rmw_dds_common/share/rmw_dds_common/cmake
 
 //The directory containing a CMake configuration file for rmw_implementation.
-rmw_implementation_DIR:PATH=/opt/ros/galactic/share/rmw_implementation/cmake
+rmw_implementation_DIR:PATH=/home/misys/ros2_galactic/install/rmw_implementation/share/rmw_implementation/cmake
 
 //The directory containing a CMake configuration file for rmw_implementation_cmake.
-rmw_implementation_cmake_DIR:PATH=/opt/ros/galactic/share/rmw_implementation_cmake/cmake
+rmw_implementation_cmake_DIR:PATH=/home/misys/ros2_galactic/install/rmw_implementation_cmake/share/rmw_implementation_cmake/cmake
 
 //The directory containing a CMake configuration file for rosgraph_msgs.
-rosgraph_msgs_DIR:PATH=/opt/ros/galactic/share/rosgraph_msgs/cmake
+rosgraph_msgs_DIR:PATH=/home/misys/ros2_galactic/install/rosgraph_msgs/share/rosgraph_msgs/cmake
 
 //The directory containing a CMake configuration file for rosidl_adapter.
-rosidl_adapter_DIR:PATH=/opt/ros/galactic/share/rosidl_adapter/cmake
+rosidl_adapter_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_adapter/share/rosidl_adapter/cmake
 
 //The directory containing a CMake configuration file for rosidl_cmake.
-rosidl_cmake_DIR:PATH=/opt/ros/galactic/share/rosidl_cmake/cmake
+rosidl_cmake_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_cmake/share/rosidl_cmake/cmake
 
 //The directory containing a CMake configuration file for rosidl_default_runtime.
-rosidl_default_runtime_DIR:PATH=/opt/ros/galactic/share/rosidl_default_runtime/cmake
+rosidl_default_runtime_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_default_runtime/share/rosidl_default_runtime/cmake
 
 //The directory containing a CMake configuration file for rosidl_generator_c.
-rosidl_generator_c_DIR:PATH=/opt/ros/galactic/share/rosidl_generator_c/cmake
+rosidl_generator_c_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_generator_c/share/rosidl_generator_c/cmake
 
 //The directory containing a CMake configuration file for rosidl_generator_cpp.
-rosidl_generator_cpp_DIR:PATH=/opt/ros/galactic/share/rosidl_generator_cpp/cmake
+rosidl_generator_cpp_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_generator_cpp/share/rosidl_generator_cpp/cmake
 
 //The directory containing a CMake configuration file for rosidl_runtime_c.
-rosidl_runtime_c_DIR:PATH=/opt/ros/galactic/share/rosidl_runtime_c/cmake
+rosidl_runtime_c_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_runtime_c/share/rosidl_runtime_c/cmake
 
 //The directory containing a CMake configuration file for rosidl_runtime_cpp.
-rosidl_runtime_cpp_DIR:PATH=/opt/ros/galactic/share/rosidl_runtime_cpp/cmake
+rosidl_runtime_cpp_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_runtime_cpp/share/rosidl_runtime_cpp/cmake
 
 //The directory containing a CMake configuration file for rosidl_typesupport_c.
-rosidl_typesupport_c_DIR:PATH=/opt/ros/galactic/share/rosidl_typesupport_c/cmake
+rosidl_typesupport_c_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_typesupport_c/share/rosidl_typesupport_c/cmake
 
 //The directory containing a CMake configuration file for rosidl_typesupport_cpp.
-rosidl_typesupport_cpp_DIR:PATH=/opt/ros/galactic/share/rosidl_typesupport_cpp/cmake
+rosidl_typesupport_cpp_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_typesupport_cpp/share/rosidl_typesupport_cpp/cmake
 
 //The directory containing a CMake configuration file for rosidl_typesupport_fastrtps_c.
-rosidl_typesupport_fastrtps_c_DIR:PATH=/opt/ros/galactic/share/rosidl_typesupport_fastrtps_c/cmake
+rosidl_typesupport_fastrtps_c_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_typesupport_fastrtps_c/share/rosidl_typesupport_fastrtps_c/cmake
 
 //The directory containing a CMake configuration file for rosidl_typesupport_fastrtps_cpp.
-rosidl_typesupport_fastrtps_cpp_DIR:PATH=/opt/ros/galactic/share/rosidl_typesupport_fastrtps_cpp/cmake
+rosidl_typesupport_fastrtps_cpp_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_typesupport_fastrtps_cpp/share/rosidl_typesupport_fastrtps_cpp/cmake
 
 //The directory containing a CMake configuration file for rosidl_typesupport_interface.
-rosidl_typesupport_interface_DIR:PATH=/opt/ros/galactic/share/rosidl_typesupport_interface/cmake
+rosidl_typesupport_interface_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_typesupport_interface/share/rosidl_typesupport_interface/cmake
 
 //The directory containing a CMake configuration file for rosidl_typesupport_introspection_c.
-rosidl_typesupport_introspection_c_DIR:PATH=/opt/ros/galactic/share/rosidl_typesupport_introspection_c/cmake
+rosidl_typesupport_introspection_c_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_typesupport_introspection_c/share/rosidl_typesupport_introspection_c/cmake
 
 //The directory containing a CMake configuration file for rosidl_typesupport_introspection_cpp.
-rosidl_typesupport_introspection_cpp_DIR:PATH=/opt/ros/galactic/share/rosidl_typesupport_introspection_cpp/cmake
+rosidl_typesupport_introspection_cpp_DIR:PATH=/home/misys/ros2_galactic/install/rosidl_typesupport_introspection_cpp/share/rosidl_typesupport_introspection_cpp/cmake
 
 //The directory containing a CMake configuration file for statistics_msgs.
-statistics_msgs_DIR:PATH=/opt/ros/galactic/share/statistics_msgs/cmake
+statistics_msgs_DIR:PATH=/home/misys/ros2_galactic/install/statistics_msgs/share/statistics_msgs/cmake
 
 //The directory containing a CMake configuration file for std_msgs.
-std_msgs_DIR:PATH=/opt/ros/galactic/share/std_msgs/cmake
+std_msgs_DIR:PATH=/home/misys/ros2_galactic/install/std_msgs/share/std_msgs/cmake
 
 //The directory containing a CMake configuration file for tracetools.
-tracetools_DIR:PATH=/opt/ros/galactic/share/tracetools/cmake
+tracetools_DIR:PATH=/home/misys/ros2_galactic/install/tracetools/share/tracetools/cmake
 
 //The directory containing a CMake configuration file for yaml.
-yaml_DIR:PATH=/opt/ros/galactic/cmake
+yaml_DIR:PATH=/home/misys/ros2_galactic/install/libyaml_vendor/cmake
 
 
 ########################

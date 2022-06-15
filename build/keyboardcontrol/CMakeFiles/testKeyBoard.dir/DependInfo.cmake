@@ -17,7 +17,29 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../../include"
-  "/opt/ros/galactic/include"
+  "/home/misys/ros2_galactic/install/rclcpp/include"
+  "/home/misys/ros2_galactic/install/std_msgs/include"
+  "/home/misys/ros2_galactic/install/ament_index_cpp/include"
+  "/home/misys/ros2_galactic/install/libstatistics_collector/include"
+  "/home/misys/ros2_galactic/install/rcl/include"
+  "/home/misys/ros2_galactic/install/rcl_interfaces/include"
+  "/home/misys/ros2_galactic/install/builtin_interfaces/include"
+  "/home/misys/ros2_galactic/install/rosidl_runtime_c/include"
+  "/home/misys/ros2_galactic/install/rcutils/include"
+  "/home/misys/ros2_galactic/install/rosidl_typesupport_interface/include"
+  "/home/misys/ros2_galactic/install/rosidl_typesupport_introspection_c/include"
+  "/home/misys/ros2_galactic/install/rosidl_typesupport_c/include"
+  "/home/misys/ros2_galactic/install/rcpputils/include"
+  "/home/misys/ros2_galactic/install/rosidl_runtime_cpp/include"
+  "/home/misys/ros2_galactic/install/rosidl_typesupport_introspection_cpp/include"
+  "/home/misys/ros2_galactic/install/rosidl_typesupport_cpp/include"
+  "/home/misys/ros2_galactic/install/rcl_logging_interface/include"
+  "/home/misys/ros2_galactic/install/rcl_yaml_param_parser/include"
+  "/home/misys/ros2_galactic/install/libyaml_vendor/include"
+  "/home/misys/ros2_galactic/install/rmw/include"
+  "/home/misys/ros2_galactic/install/tracetools/include"
+  "/home/misys/ros2_galactic/install/statistics_msgs/include"
+  "/home/misys/ros2_galactic/install/rosgraph_msgs/include"
   )
 
 # Targets to which this target links.

@@ -49,7 +49,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/keyboardcontrol/getKeyBoard")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/keyboardcontrol/getKeyBoard"
-         OLD_RPATH "/opt/ros/galactic/lib:"
+         OLD_RPATH "/home/misys/ros2_galactic/install/rclcpp/lib:/home/misys/ros2_galactic/install/ament_index_cpp/lib:/home/misys/ros2_galactic/install/libstatistics_collector/lib:/home/misys/ros2_galactic/install/std_msgs/lib:/home/misys/ros2_galactic/install/rcl/lib:/home/misys/ros2_galactic/install/rcl_interfaces/lib:/home/misys/ros2_galactic/install/rmw_implementation/lib:/home/misys/ros2_galactic/install/rcl_logging_spdlog/lib:/home/misys/ros2_galactic/install/rcl_logging_interface/lib:/home/misys/ros2_galactic/install/rcl_yaml_param_parser/lib:/home/misys/ros2_galactic/install/rmw/lib:/home/misys/ros2_galactic/install/libyaml_vendor/lib:/home/misys/ros2_galactic/install/rosgraph_msgs/lib:/home/misys/ros2_galactic/install/statistics_msgs/lib:/home/misys/ros2_galactic/install/builtin_interfaces/lib:/home/misys/ros2_galactic/install/rosidl_typesupport_introspection_cpp/lib:/home/misys/ros2_galactic/install/rosidl_typesupport_introspection_c/lib:/home/misys/ros2_galactic/install/rosidl_typesupport_cpp/lib:/home/misys/ros2_galactic/install/rosidl_typesupport_c/lib:/home/misys/ros2_galactic/install/rcpputils/lib:/home/misys/ros2_galactic/install/rosidl_runtime_c/lib:/home/misys/ros2_galactic/install/rcutils/lib:/home/misys/ros2_galactic/install/tracetools/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/keyboardcontrol/getKeyBoard")
@@ -69,7 +69,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/keyboardcontrol/getKeyBoard")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/keyboardcontrol/getKeyBoard"
-         OLD_RPATH "/opt/ros/galactic/lib:"
+         OLD_RPATH "/home/misys/ros2_galactic/install/rclcpp/lib:/home/misys/ros2_galactic/install/ament_index_cpp/lib:/home/misys/ros2_galactic/install/libstatistics_collector/lib:/home/misys/ros2_galactic/install/std_msgs/lib:/home/misys/ros2_galactic/install/rcl/lib:/home/misys/ros2_galactic/install/rcl_interfaces/lib:/home/misys/ros2_galactic/install/rmw_implementation/lib:/home/misys/ros2_galactic/install/rcl_logging_spdlog/lib:/home/misys/ros2_galactic/install/rcl_logging_interface/lib:/home/misys/ros2_galactic/install/rcl_yaml_param_parser/lib:/home/misys/ros2_galactic/install/rmw/lib:/home/misys/ros2_galactic/install/libyaml_vendor/lib:/home/misys/ros2_galactic/install/rosgraph_msgs/lib:/home/misys/ros2_galactic/install/statistics_msgs/lib:/home/misys/ros2_galactic/install/builtin_interfaces/lib:/home/misys/ros2_galactic/install/rosidl_typesupport_introspection_cpp/lib:/home/misys/ros2_galactic/install/rosidl_typesupport_introspection_c/lib:/home/misys/ros2_galactic/install/rosidl_typesupport_cpp/lib:/home/misys/ros2_galactic/install/rosidl_typesupport_c/lib:/home/misys/ros2_galactic/install/rcpputils/lib:/home/misys/ros2_galactic/install/rosidl_runtime_c/lib:/home/misys/ros2_galactic/install/rcutils/lib:/home/misys/ros2_galactic/install/tracetools/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/keyboardcontrol/getKeyBoard")
@@ -89,7 +89,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/keyboardcontrol/testKeyBoard")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/keyboardcontrol/testKeyBoard"
-         OLD_RPATH "/opt/ros/galactic/lib:"
+         OLD_RPATH "/home/misys/ros2_galactic/install/rclcpp/lib:/home/misys/ros2_galactic/install/ament_index_cpp/lib:/home/misys/ros2_galactic/install/libstatistics_collector/lib:/home/misys/ros2_galactic/install/std_msgs/lib:/home/misys/ros2_galactic/install/rcl/lib:/home/misys/ros2_galactic/install/rcl_interfaces/lib:/home/misys/ros2_galactic/install/rmw_implementation/lib:/home/misys/ros2_galactic/install/rcl_logging_spdlog/lib:/home/misys/ros2_galactic/install/rcl_logging_interface/lib:/home/misys/ros2_galactic/install/rcl_yaml_param_parser/lib:/home/misys/ros2_galactic/install/rmw/lib:/home/misys/ros2_galactic/install/libyaml_vendor/lib:/home/misys/ros2_galactic/install/rosgraph_msgs/lib:/home/misys/ros2_galactic/install/statistics_msgs/lib:/home/misys/ros2_galactic/install/builtin_interfaces/lib:/home/misys/ros2_galactic/install/rosidl_typesupport_introspection_cpp/lib:/home/misys/ros2_galactic/install/rosidl_typesupport_introspection_c/lib:/home/misys/ros2_galactic/install/rosidl_typesupport_cpp/lib:/home/misys/ros2_galactic/install/rosidl_typesupport_c/lib:/home/misys/ros2_galactic/install/rcpputils/lib:/home/misys/ros2_galactic/install/rosidl_runtime_c/lib:/home/misys/ros2_galactic/install/rcutils/lib:/home/misys/ros2_galactic/install/tracetools/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/keyboardcontrol/testKeyBoard")
@@ -106,7 +106,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/keyboardcontrol/environment" TYPE FILE FILES "/opt/ros/galactic/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/keyboardcontrol/environment" TYPE FILE FILES "/home/misys/ros2_galactic/install/ament_cmake_core/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -114,7 +114,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/keyboardcontrol/environment" TYPE FILE FILES "/opt/ros/galactic/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/keyboardcontrol/environment" TYPE FILE FILES "/home/misys/ros2_galactic/install/ament_cmake_core/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

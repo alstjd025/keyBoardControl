@@ -60,8 +60,8 @@ enum MCMState{
 };
 
 enum SETPID{
-  PID_STANDBY,
-  PID_ON,
+  PID_STANDBY = 1,
+  PID_ON ,
   PID_OFF,
 };
 
@@ -79,6 +79,9 @@ class getKeyBoardInput : public rclcpp::Node
   
     void standby();
     void controlSelectSequance();
+    void controllerSelectSequance();
+    void controlStartSequance();
+
     int getcontrolSelectKey();  
     void pidControlSequance();
     void printpidControlKey();
@@ -86,6 +89,8 @@ class getKeyBoardInput : public rclcpp::Node
     int getModeSelectKey();
     int AutoPilotMenu();
     void printAutoPilotState();
+
+
 
     void overrideHandler();
     void faultHandler();

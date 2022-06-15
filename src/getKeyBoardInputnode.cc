@@ -68,6 +68,10 @@ void getKeyBoardInput::standby()
         case MCMState::STANDBY:
             controlSelectSequance();
             break;
+        
+        case MCMState::CONTROL_ENABLE:
+            controllerSelectSequance();
+            break;
 
         case MCMState::AUTOPILOT_STANDBY:
             printGearChange();
@@ -254,7 +258,12 @@ void getKeyBoardInput::controlSelectSequance()
         break;
     }
     sleep(1);
-    key = getModeSelectKey();
+}
+
+void getKeyBoardInput::controllerSelectSequance()
+{
+    int key = getModeSelectKey();
+    auto message_control_cmd = std_msgs::msg::Int32();
     auto ext_msg = std_msgs::msg::Int32::SharedPtr(
                     new std_msgs::msg::Int32);
     switch (key)
@@ -262,24 +271,56 @@ void getKeyBoardInput::controlSelectSequance()
     case KEY_1:
         ext_msg->data = SETPID::PID_STANDBY;
         publisher_external_cmd->publish(*ext_msg);
+        updateStateTo(MCMState::AUTOPILOT_STANDBY);
         
         break;
     case KEY_2:
-        ext_msg->data = SETPID::PID_STANDBY;
-        publisher_external_cmd->publish(*ext_msg);
         /* KeyBoardControl mode selected
            should publish 1 to ext_cmd
          */
+        ext_msg->data = SETPID::PID_STANDBY;
+        publisher_external_cmd->publish(*ext_msg);
+        updateStateTo(MCMState::AUTOPILOT_STANDBY);
         break;
     case KEY_3:
         /* goto prev step
            should publish 1 to ext_cmd
          */
+        printw("Control Disable\n");
+        refresh();
+        message_control_cmd.data = 0;
+        publisher_control_cmd->publish(message_control_cmd);
+        break;
         break;
     case KEY_Q:
         quitControl();
         break;
 
+    default:
+        break;
+    }
+}
+
+void getKeyBoardInput::controlStartSequance()
+{
+    int key = AutoPilotMenu();
+    auto message_control_cmd = std_msgs::msg::Int32();
+    auto ext_msg = std_msgs::msg::Int32::SharedPtr(
+                    new std_msgs::msg::Int32);
+    switch (key)
+    {
+    case KEY_1:
+        ext_msg->data = SETPID::PID_ON;
+        publisher_external_cmd->publish(*ext_msg);
+        updateStateTo(MCMState::AUTOPILOT_ON);
+        break;
+    case KEY_2:
+        printw("Control Disable\n");
+        refresh();
+        ext_msg->data = SETPID::PID_OFF;
+        publisher_external_cmd->publish(*ext_msg);
+        message_control_cmd.data = 0;
+        publisher_control_cmd->publish(message_control_cmd);
     default:
         break;
     }
@@ -312,7 +353,7 @@ MCMState getKeyBoardInput::returnState()
 void getKeyBoardInput::updateState(const std_msgs::msg::Int32::SharedPtr msg)
 {
     updateStateTo(msg->data);
-    if (msg->data == 1)
+    if (control_enabled == true)
     {
         printw("Control Enabled! \n");
         printw("Control Enabled! \n");
@@ -372,10 +413,11 @@ void getKeyBoardInput::updateStateTo(int state)
 {
     MCM_State_Lock.lock();
     mcm_State = MCMState(state);
-    if(state == 1){
+    if(mcm_State == MCMState::CONTROL_ENABLE){
         control_enabled = true;
     }
-    else{
+    else if(mcm_State == MCMState::STANDBY || mcm_State == MCMState::OVERRIDE ||\
+           mcm_State == MCMState::FAULT || mcm_State == MCMState::QUIT){
         control_enabled = false;
     }
     refresh();
@@ -389,6 +431,10 @@ void getKeyBoardInput::faultHandler()
     if (returnState() == MCMState::OVERRIDE ||
         returnState() == MCMState::FAULT)
     {
+        auto ext_msg = std_msgs::msg::Int32::SharedPtr(
+                    new std_msgs::msg::Int32);
+        ext_msg->data = SETPID::PID_OFF;
+        publisher_external_cmd->publish(*ext_msg);
         updateStateTo(MCMState::STANDBY);
     }
 }
@@ -402,6 +448,10 @@ void getKeyBoardInput::quitControl()
     message_angle.data = 0;
     publisher_speed->publish(message_speed);
     publisher_angle->publish(message_angle);
+    auto ext_msg = std_msgs::msg::Int32::SharedPtr(
+                    new std_msgs::msg::Int32);
+    ext_msg->data = SETPID::PID_OFF;
+    publisher_external_cmd->publish(*ext_msg);
     sleep(5);
     endwin();
     exit(0);
@@ -436,32 +486,38 @@ int getKeyBoardInput::AutoPilotMenu()
 {
     clear();
     printw("=====[AUTOPILOT SET]=====\n");
-    printw("1 : Start Control \n");
-    printw("2 : Stop Control \n");
-    printw("3 : Disable control & Return to fisrt step  \n");
+    printw("1 : Start control \n");
+    printw("2 : Disable control & Return to fisrt step  \n");
     refresh();
     int key = getch();
-    switch (key)
-    {
-    case 1:
-        /* code */
-        break;
-    case 2:
-    
-    default:
-        break;
-    }
 }
 
 void getKeyBoardInput::printAutoPilotState()
 {
+    auto message_control_cmd = std_msgs::msg::Int32();
+    auto ext_msg = std_msgs::msg::Int32::SharedPtr(
+                    new std_msgs::msg::Int32);
     clear();
-    printw("=====[AUTOPILOT State Report]=====\n");
-    printw("Current Velocity : %f km/h\n", cur_vel);
-    printw("Ref Velocity     : %f km/h\n", ref_vel);
-    printw("Current Steering Wheel Angle : %f deg\n", cur_ang);
-    printw("Ref Steering Wheel Angle     : %f deg\n", ref_ang);
+    printw("=====[AUTOPILOT]=====\n");
+    //printw("Current Velocity : %f km/h\n", cur_vel);
+    //printw("Ref Velocity     : %f km/h\n", ref_vel);
+    //printw("Current Steering Wheel Angle : %f deg\n", cur_ang);
+    //printw("Ref Steering Wheel Angle     : %f deg\n", ref_ang);
+    printw("Press Dot(') to disable autopilot\n");
     refresh();
+    int key = getch();
+    switch (key)
+    {
+    case DOT:
+        ext_msg->data = SETPID::PID_OFF;
+        publisher_external_cmd->publish(*ext_msg);
+        message_control_cmd.data = 0;
+        publisher_control_cmd->publish(message_control_cmd);
+        break;
+    
+    default:
+        break;
+    }
 }
 
 void getKeyBoardInput::printGearChange()

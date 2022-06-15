@@ -3,9 +3,7 @@
 /home/misys/keyBoardControl/install/keyboardcontrol/lib/keyboardcontrol/testKeyBoard
 /home/misys/keyBoardControl/install/keyboardcontrol/share/ament_index/resource_index/package_run_dependencies/keyboardcontrol
 /home/misys/keyBoardControl/install/keyboardcontrol/share/ament_index/resource_index/parent_prefix_path/keyboardcontrol
-/home/misys/keyBoardControl/install/keyboardcontrol/share/keyboardcontrol/environment/ament_prefix_path.sh
 /home/misys/keyBoardControl/install/keyboardcontrol/share/keyboardcontrol/environment/ament_prefix_path.dsv
-/home/misys/keyBoardControl/install/keyboardcontrol/share/keyboardcontrol/environment/path.sh
 /home/misys/keyBoardControl/install/keyboardcontrol/share/keyboardcontrol/environment/path.dsv
 /home/misys/keyBoardControl/install/keyboardcontrol/share/keyboardcontrol/local_setup.bash
 /home/misys/keyBoardControl/install/keyboardcontrol/share/keyboardcontrol/local_setup.sh
