@@ -48,6 +48,8 @@ getKeyBoardInput::getKeyBoardInput()
     mcm_State = STANDBY;
     message_speed.data = 0;
     message_angle.data = 0;
+    cur_gear = 0;
+    cur_gear_c = "P";
 
     thread j(&getKeyBoardInput::standby, this);
     j.detach();
@@ -63,6 +65,10 @@ void getKeyBoardInput::standby()
     while (returnState() != MCMState::QUIT)
     {
         MCMState tmp = returnState();
+        // clear();
+        // printw("state : %d\n", tmp);
+        // refresh();
+        // sleep(3);
         switch (tmp)
         {
         case MCMState::STANDBY:
@@ -74,11 +80,15 @@ void getKeyBoardInput::standby()
             break;
 
         case MCMState::AUTOPILOT_STANDBY:
+            // clear();
+            // printw("to gear\n", tmp);
+            // refresh();
+            // sleep(3);
             printGearChange();
             break;
 
         case MCMState::AUTOPILOT_SET:
-            AutoPilotMenu();
+            controlStartSequance();
             break;
 
         case MCMState::AUTOPILOT_ON:
@@ -269,34 +279,35 @@ void getKeyBoardInput::controllerSelectSequance()
     switch (key)
     {
     case KEY_1:
+        printw("Autopilot selected\n");
+        refresh();
+        sleep(3);
         ext_msg->data = SETPID::PID_STANDBY;
         publisher_external_cmd->publish(*ext_msg);
         updateStateTo(MCMState::AUTOPILOT_STANDBY);
         
         break;
     case KEY_2:
-        /* KeyBoardControl mode selected
-           should publish 1 to ext_cmd
-         */
+        printw("Keyboard selected\n");
+        refresh();
         ext_msg->data = SETPID::PID_STANDBY;
         publisher_external_cmd->publish(*ext_msg);
-        updateStateTo(MCMState::AUTOPILOT_STANDBY);
+        updateStateTo(MCMState::KEYBOARD);
         break;
     case KEY_3:
-        /* goto prev step
-           should publish 1 to ext_cmd
-         */
         printw("Control Disable\n");
         refresh();
         message_control_cmd.data = 0;
         publisher_control_cmd->publish(message_control_cmd);
         break;
-        break;
+    
     case KEY_Q:
         quitControl();
         break;
 
     default:
+        printw("Got %d \n", key);
+        refresh();
         break;
     }
 }
@@ -457,6 +468,16 @@ void getKeyBoardInput::quitControl()
     exit(0);
 }
 
+void getKeyBoardInput::printDebug()
+{
+    clear();
+    printw("=====[DEBUG]=====\n");
+    printw("cur state : %d\n", returnState());
+    refresh();
+    sleep(3);
+
+}
+
 void getKeyBoardInput::printpidControlKey()
 {
     clear();
@@ -527,6 +548,7 @@ void getKeyBoardInput::printGearChange()
     printw("Please shift gear to D (drive) to continue\n");
     printw("Current gear : %c \n", *cur_gear_c);
     refresh();
+    sleep(1);
     if(cur_gear == 5){
         sleep(1);
         updateStateTo(MCMState::AUTOPILOT_SET);

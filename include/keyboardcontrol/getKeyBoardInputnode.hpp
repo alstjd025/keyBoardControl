@@ -89,7 +89,7 @@ class getKeyBoardInput : public rclcpp::Node
     int getModeSelectKey();
     int AutoPilotMenu();
     void printAutoPilotState();
-
+    void printDebug();
 
 
     void overrideHandler();
