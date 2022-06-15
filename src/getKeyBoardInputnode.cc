@@ -21,7 +21,7 @@ using namespace std::chrono_literals;
  3 : 51
 */
 getKeyBoardInput::getKeyBoardInput()
-    : Node("minimal_publisher")
+    : Node("KeyboardController")
 {
     publisher_speed = this->create_publisher<std_msgs::msg::Float64>("ref_vel", 10);
     publisher_angle = this->create_publisher<std_msgs::msg::Float64>("ref_ang", 10);
@@ -65,10 +65,6 @@ void getKeyBoardInput::standby()
     while (returnState() != MCMState::QUIT)
     {
         MCMState tmp = returnState();
-        clear();
-        printw("state : %d\n", tmp);
-        refresh();
-        sleep(3);
         switch (tmp)
         {
         case MCMState::STANDBY:
@@ -84,10 +80,6 @@ void getKeyBoardInput::standby()
             break;
 
         case MCMState::AUTOPILOT_SET:
-            clear();
-            printw("to set\n", tmp);
-            refresh();
-            sleep(3);
             controlStartSequance();
             break;
 
@@ -332,6 +324,7 @@ void getKeyBoardInput::controlStartSequance()
         publisher_external_cmd->publish(*ext_msg);
         message_control_cmd.data = 0;
         publisher_control_cmd->publish(message_control_cmd);
+        updateStateTo(MCMState::STANDBY);
     default:
         break;
     }
@@ -413,11 +406,11 @@ void getKeyBoardInput::v2xCB(const std_msgs::msg::Float64MultiArray::SharedPtr m
         break;
     case 6: //Reverse
         cur_gear = 6;    
-        cur_gear_c = "R";
+        cur_gear_c = "N";
         break;
     case 7: //Neutral
         cur_gear = 7;
-        cur_gear_c = "N";
+        cur_gear_c = "R";
         break;
     default:
         break;
@@ -515,6 +508,7 @@ int getKeyBoardInput::AutoPilotMenu()
     printw("2 : Disable control & Return to fisrt step  \n");
     refresh();
     int key = getch();
+    return key;
 }
 
 void getKeyBoardInput::printAutoPilotState()
@@ -538,6 +532,7 @@ void getKeyBoardInput::printAutoPilotState()
         publisher_external_cmd->publish(*ext_msg);
         message_control_cmd.data = 0;
         publisher_control_cmd->publish(message_control_cmd);
+        updateStateTo(MCMState::STANDBY);
         break;
     
     default:
