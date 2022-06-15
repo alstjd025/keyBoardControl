@@ -65,10 +65,10 @@ void getKeyBoardInput::standby()
     while (returnState() != MCMState::QUIT)
     {
         MCMState tmp = returnState();
-        // clear();
-        // printw("state : %d\n", tmp);
-        // refresh();
-        // sleep(3);
+        clear();
+        printw("state : %d\n", tmp);
+        refresh();
+        sleep(3);
         switch (tmp)
         {
         case MCMState::STANDBY:
@@ -80,14 +80,14 @@ void getKeyBoardInput::standby()
             break;
 
         case MCMState::AUTOPILOT_STANDBY:
-            // clear();
-            // printw("to gear\n", tmp);
-            // refresh();
-            // sleep(3);
             printGearChange();
             break;
 
         case MCMState::AUTOPILOT_SET:
+            clear();
+            printw("to set\n", tmp);
+            refresh();
+            sleep(3);
             controlStartSequance();
             break;
 
@@ -404,15 +404,19 @@ void getKeyBoardInput::v2xCB(const std_msgs::msg::Float64MultiArray::SharedPtr m
     switch (static_cast<int>(msg->data[1]))
     {
     case 5: //Drive
+        cur_gear = 5;
         cur_gear_c = "D";
         break;
     case 0: //Parking
+        cur_gear = 0;
         cur_gear_c = "P";
         break;
     case 6: //Reverse
+        cur_gear = 6;    
         cur_gear_c = "R";
         break;
     case 7: //Neutral
+        cur_gear = 7;
         cur_gear_c = "N";
         break;
     default:
