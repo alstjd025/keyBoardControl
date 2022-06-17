@@ -483,13 +483,14 @@ void getKeyBoardInput::printDebug()
 void getKeyBoardInput::printpidControlKey()
 {
     clear();
-    printw("=====[PID TEST]=====\n");
+    printw("=====[KEYBOARDCONTROL PID TEST]=====\n");
     printw("UP   :     REF SPEED +5 km/h \n");
     printw("DOWN :     REF SPEED -5 km/h \n");
     printw("RIGHT:     REF ANGLE +5 '    \n");
     printw("LEFT :     REF ANGLE -5 '    \n");
     printw("SPACE:     Brake             \n");
     refresh();
+    sleep(3);
 }
 
 int getKeyBoardInput::getModeSelectKey()
@@ -556,8 +557,6 @@ void getKeyBoardInput::printGearChangeAutopilot()
     if(cur_gear == 5){
         sleep(1);
         updateStateTo(MCMState::AUTOPILOT_SET);
-        printpidControlKey();
-        sleep(3);
     }
 }
 
@@ -576,6 +575,7 @@ void getKeyBoardInput::printGearChangeKeyboard()
         updateStateTo(MCMState::KEYBOARDON);
         ext_msg->data = SETPID::PID_ON;
         publisher_external_cmd->publish(*ext_msg);
+        printpidControlKey();
     }
 }
 
