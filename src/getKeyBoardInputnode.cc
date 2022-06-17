@@ -76,7 +76,11 @@ void getKeyBoardInput::standby()
             break;
 
         case MCMState::AUTOPILOT_STANDBY:
-            printGearChange();
+            printGearChangeAutopilot();
+            break;
+
+        case MCMState::KEYBOARDSET:
+            printGearChangeKeyboard();
             break;
 
         case MCMState::AUTOPILOT_SET:
@@ -87,7 +91,7 @@ void getKeyBoardInput::standby()
             printAutoPilotState();
             break;
 
-        case MCMState::KEYBOARD:
+        case MCMState::KEYBOARDON:
             pidControlSequance();
             break;
 
@@ -115,16 +119,15 @@ void getKeyBoardInput::pidControlSequance()
 {
     clear();
     int key;
-    printpidControlKey();
     message_angle.data = -cur_ang;
-    clear();
-    refresh();
     //publisher_angle->publish(message_angle);
     auto message_control_cmd = std_msgs::msg::Int32();
-    while (key != 'q' && returnState() == MCMState::CONTROL_ENABLE)
+    auto ext_msg = std_msgs::msg::Int32::SharedPtr(
+                    new std_msgs::msg::Int32);
+    while (key != 'q' && returnState() == MCMState::KEYBOARDON)
     {
         key = getch();
-        if (returnState() != MCMState::CONTROL_ENABLE)
+        if (returnState() != MCMState::KEYBOARDON)
         {
             return;
         }
@@ -198,6 +201,8 @@ void getKeyBoardInput::pidControlSequance()
             refresh();
             message_control_cmd.data = 0;
             publisher_control_cmd->publish(message_control_cmd);
+            ext_msg->data = SETPID::PID_OFF;
+            publisher_external_cmd->publish(*ext_msg);
             break;
 
         case KEY_HOME:
@@ -284,7 +289,7 @@ void getKeyBoardInput::controllerSelectSequance()
         refresh();
         ext_msg->data = SETPID::PID_STANDBY;
         publisher_external_cmd->publish(*ext_msg);
-        updateStateTo(MCMState::KEYBOARD);
+        updateStateTo(MCMState::KEYBOARDSET);
         break;
     case KEY_3:
         printw("Control Disable\n");
@@ -492,7 +497,7 @@ int getKeyBoardInput::getModeSelectKey()
     clear();
     printw("=====[MODE SELECT]=====\n");
     printw("1 : AUTOPILOT (Control by Autoware.univ - ICHTHUS) \n");
-    printw("2 : KEYBOARD  (Control by KeyboardInput - USER) \n");
+    printw("2 : KEYBOARD  (Control by KeyboardInput (DO NOT USE AUTOWARE) - USER) \n");
     printw("3 : Disable control & Return to fisrt step  \n");
     printw("Q : Quit \n");
     refresh();
@@ -540,7 +545,7 @@ void getKeyBoardInput::printAutoPilotState()
     }
 }
 
-void getKeyBoardInput::printGearChange()
+void getKeyBoardInput::printGearChangeAutopilot()
 {
     clear();
     printw("=====[STANDBY STEP]=====\n");
@@ -551,8 +556,29 @@ void getKeyBoardInput::printGearChange()
     if(cur_gear == 5){
         sleep(1);
         updateStateTo(MCMState::AUTOPILOT_SET);
+        printpidControlKey();
+        sleep(3);
     }
 }
+
+void getKeyBoardInput::printGearChangeKeyboard()
+{
+    auto ext_msg = std_msgs::msg::Int32::SharedPtr(
+                    new std_msgs::msg::Int32);
+    clear();
+    printw("=====[STANDBY STEP]=====\n");
+    printw("Please shift gear to D (drive) to continue\n");
+    printw("Current gear : %c \n", *cur_gear_c);
+    refresh();
+    sleep(1);
+    if(cur_gear == 5){
+        sleep(1);
+        updateStateTo(MCMState::KEYBOARDON);
+        ext_msg->data = SETPID::PID_ON;
+        publisher_external_cmd->publish(*ext_msg);
+    }
+}
+
 
 int getKeyBoardInput::getcontrolSelectKey()
 {

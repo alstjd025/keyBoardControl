@@ -56,7 +56,8 @@ enum MCMState{
   AUTOPILOT_SET,
   AUTOPILOT_ON,
   WAITGEAR,
-  KEYBOARD,
+  KEYBOARDSET,
+  KEYBOARDON,
 };
 
 enum SETPID{
@@ -85,7 +86,8 @@ class getKeyBoardInput : public rclcpp::Node
     int getcontrolSelectKey();  
     void pidControlSequance();
     void printpidControlKey();
-    void printGearChange();
+    void printGearChangeAutopilot();
+    void printGearChangeKeyboard();
     int getModeSelectKey();
     int AutoPilotMenu();
     void printAutoPilotState();
