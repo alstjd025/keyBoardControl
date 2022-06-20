@@ -337,6 +337,10 @@ void getKeyBoardInput::controlStartSequance()
 
 void getKeyBoardInput::overrideHandler()
 {
+    auto ext_msg = std_msgs::msg::Int32::SharedPtr(
+                    new std_msgs::msg::Int32);
+    ext_msg->data = SETPID::PID_OFF;
+    publisher_external_cmd->publish(*ext_msg);
     clear();
     printw("Override Detected!! \n");
     printw("Override Detected!! \n");
