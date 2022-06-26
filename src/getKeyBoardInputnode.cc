@@ -23,24 +23,13 @@ using namespace std::chrono_literals;
 getKeyBoardInput::getKeyBoardInput()
     : Node("KeyboardController")
 {
-    publisher_speed = this->create_publisher<std_msgs::msg::Float64>("ref_vel", 10);
-    publisher_angle = this->create_publisher<std_msgs::msg::Float64>("ref_ang", 10);
+    publisher_speed = this->create_publisher<ichthus_msgs::msg::Common>("ref_vel", 10);
+    publisher_angle = this->create_publisher<ichthus_msgs::msg::Common>("ref_ang", 10);
     publisher_control_cmd = this->create_publisher<std_msgs::msg::Int32>("CONTROL_CMD", 10);
     publisher_external_cmd = this->create_publisher<std_msgs::msg::Int32>("extern_cmd", 10);
 
     mcm_state_sub = this->create_subscription<std_msgs::msg::Int32>(
         "mcm_status", 10, std::bind(&getKeyBoardInput::updateState, this, _1));
-
-    cur_angle_sub = this->create_subscription<std_msgs::msg::Float64>(
-        "cur_ang", 10, std::bind(&getKeyBoardInput::curAngCB, this, _1));
-    cur_vel_sub = this->create_subscription<std_msgs::msg::Float64>(
-        "cur_vel", 10, std::bind(&getKeyBoardInput::curVelCB, this, _1));
-
-    ref_angle_sub = this->create_subscription<std_msgs::msg::Float64>(
-        "ref_ang", 10, std::bind(&getKeyBoardInput::refAngCB, this, _1));
-    ref_vel_sub = this->create_subscription<std_msgs::msg::Float64>(
-        "ref_vel", 10, std::bind(&getKeyBoardInput::refVelCB, this, _1));
-
 
     v2x_sub = this->create_subscription<std_msgs::msg::Float64MultiArray>(
         "v2x", 10,  std::bind(&getKeyBoardInput::v2xCB, this, _1));
@@ -287,6 +276,7 @@ void getKeyBoardInput::controllerSelectSequance()
     case KEY_2:
         printw("Keyboard selected\n");
         refresh();
+        sleep(3);
         ext_msg->data = SETPID::PID_STANDBY;
         publisher_external_cmd->publish(*ext_msg);
         updateStateTo(MCMState::KEYBOARDSET);
@@ -378,26 +368,6 @@ void getKeyBoardInput::updateState(const std_msgs::msg::Int32::SharedPtr msg)
     {
         overrideHandler();
     }
-}
-
-void getKeyBoardInput::curAngCB(const std_msgs::msg::Float64::SharedPtr msg)
-{
-    cur_ang = msg->data;
-}
-
-void getKeyBoardInput::curVelCB(const std_msgs::msg::Float64::SharedPtr msg)
-{
-    cur_vel = msg->data;
-}
-
-void getKeyBoardInput::refAngCB(const std_msgs::msg::Float64::SharedPtr msg)
-{
-    ref_ang = msg->data;
-}
-
-void getKeyBoardInput::refVelCB(const std_msgs::msg::Float64::SharedPtr msg)
-{
-    ref_vel = msg->data;
 }
 
 
@@ -553,7 +523,7 @@ void getKeyBoardInput::printAutoPilotState()
 void getKeyBoardInput::printGearChangeAutopilot()
 {
     clear();
-    printw("=====[STANDBY STEP]=====\n");
+    printw("=====[AUTOPILOT STANDBY STEP]=====\n");
     printw("Please shift gear to D (drive) to continue\n");
     printw("Current gear : %c \n", *cur_gear_c);
     refresh();
@@ -569,7 +539,7 @@ void getKeyBoardInput::printGearChangeKeyboard()
     auto ext_msg = std_msgs::msg::Int32::SharedPtr(
                     new std_msgs::msg::Int32);
     clear();
-    printw("=====[STANDBY STEP]=====\n");
+    printw("=====[KEYBOARD STANDBY STEP]=====\n");
     printw("Please shift gear to D (drive) to continue\n");
     printw("Current gear : %c \n", *cur_gear_c);
     refresh();

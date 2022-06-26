@@ -9,6 +9,7 @@
 #include <thread>
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/float64.hpp"
+#include "ichthus_msgs/msg/common.hpp"
 #include "std_msgs/msg/int32.hpp"
 #include "std_msgs/msg/float64_multi_array.hpp"
 
@@ -25,7 +26,7 @@ using std::thread;
 #define DOT       46
 
 #define ANG       13
-#define VEL       5
+#define VEL       1
 
 /* This example creates a subclass of Node and uses std::bind() to register a
 * member function as a callback from the timer. */
@@ -70,8 +71,8 @@ class getKeyBoardInput : public rclcpp::Node
 {
   public:
     
-    std_msgs::msg::Float64 message_speed;
-    std_msgs::msg::Float64 message_angle;
+    ichthus_msgs::msg::Common message_speed;
+    ichthus_msgs::msg::Common message_angle;
     std_msgs::msg::Int32 message_control_cmd;
     std_msgs::msg::Int32 message_external_cmd;
   
@@ -106,12 +107,6 @@ class getKeyBoardInput : public rclcpp::Node
     void updateCurAngle(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
 
     void v2xCB(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
-    void curAngCB(const std_msgs::msg::Float64::SharedPtr msg);
-    void curVelCB(const std_msgs::msg::Float64::SharedPtr msg);
-
-    void refAngCB(const std_msgs::msg::Float64::SharedPtr msg);
-    void refVelCB(const std_msgs::msg::Float64::SharedPtr msg);
-
 
 
     void externCMD();
@@ -135,8 +130,8 @@ class getKeyBoardInput : public rclcpp::Node
     std::mutex General_State_Lock;
 
 
-    rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_speed;
-    rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_angle;
+    rclcpp::Publisher<ichthus_msgs::msg::Common>::SharedPtr publisher_angle;
+    rclcpp::Publisher<ichthus_msgs::msg::Common>::SharedPtr publisher_speed;
     rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr publisher_control_cmd;
     rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr publisher_external_cmd;
 
@@ -144,9 +139,4 @@ class getKeyBoardInput : public rclcpp::Node
     rclcpp::Subscription<std_msgs::msg::Int32>::SharedPtr mcm_state_sub;
     rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr v2x_sub;
 
-    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr cur_angle_sub;
-    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr cur_vel_sub;
-
-    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr ref_angle_sub;
-    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr ref_vel_sub;
 };
